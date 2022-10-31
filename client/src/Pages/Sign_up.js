@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import Sign_upSuccess from './Sign_upSuccess'
 import '../form_components/Form.css'
 import FormSignup from '../form_components/FormSignup';
 import Home from './Home';

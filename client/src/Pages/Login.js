@@ -11,15 +11,15 @@ const Login = () => {
     
     return (
         <>
-      <div className='form-background'>
-        <div className='form-container'>
+      <div className='form-background-login'>
+        <h1 className='login-welcome'>WELCOME</h1>
+        <div className='form-container-login'>
         <span className='close-btn'>×</span>
-        {/* {!isLogin ? (
+        {!isLogin ? (
           <FormLogin submitForm={submitForm} />
         ) : (
           <Home />
-        )} */}
-        <FormLogin/>
+        )}
       </div>
       </div>
     </>

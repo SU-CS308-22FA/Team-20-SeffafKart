@@ -4,7 +4,7 @@ import useForm from './useForm';
 import './Form.css';
 
 
-function FormLogin({Login,error,submitForm}) {
+function FormLogin({Login,submitForm}) {
     const {handleSubmit, values, errors} = useForm(
         submitForm,
         validate
