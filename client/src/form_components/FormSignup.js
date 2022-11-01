@@ -2,27 +2,40 @@ import React, { useState } from "react";
 import validate from "./validateInfo";
 import useForm from "./useForm";
 import Axios from "axios";
+import { Navigate } from 'react-router-dom';
 import "./Form.css";
 
 const FormSignup = () => {
   const [userName, SetUserName] = useState("");
   const [password, SetPassword] = useState("");
   const [email, SetEmail] = useState("");
+  const [success, setSuccess] = useState(false);
 
-  const submitReview = () => {
+  const submitReview = async (e) => {
+    e.preventDefault();
     Axios.post("http://localhost:3001/api/insert", {
       userName: userName,
       password: password,
       email: email,
-    }).then(() => {
+    }).then((err) => {
       alert("sucessfull insert");
-    });
+      console.log(err);
+      if(err === null) {
+        setSuccess(true);
+      }
+     });
   };
 
   const { handleChange, handleSubmit, values, errors } = useForm(validate);
 
   return (
-    <div className="form-content-right">
+    <>
+    {success ? (
+      <section>
+      <Navigate to="/" />
+      </section>
+    ) : (
+      <div className="form-content-right">
       <form className="form" noValidate>
         <h1>
           Get started with us today! Create your account by filling out the
@@ -87,6 +100,8 @@ const FormSignup = () => {
         </span>
       </form>
     </div>
+    )}
+    </>
   );
 };
 

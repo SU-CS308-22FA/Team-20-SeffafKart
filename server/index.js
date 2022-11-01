@@ -7,7 +7,7 @@ const mysql = require("mysql2");
 const db = mysql.createPool({
   host: "localhost",
   user: "root",
-  password: "B.alaca2020",
+  password: "password",
   database: "cruddatabase",
 });
 
@@ -34,6 +34,20 @@ app.post("/api/login", (req, res) => {
   });
 });
 
+// app.put("/api/update", (req, res) => {
+//   const id = req.body.id;
+//   const name = req.body.userName;
+//   const pass = req.body.password;
+//   const email = req.body.email;
+//   const info = req.body.userInfo;
+
+//   const sqlUpdate = "UPDATE users SET userName = ?, password = ?, email = ?, userInfo = ? WHERE id = ?";
+
+//     db.query(sqlUpdate,[name, pass, email, info, id] , (err, result) => {
+//       if (err) console.log(err);
+//     })
+// });
+
 app.post("/api/insert", (req, res) => {
   const userName = req.body.userName;
   const password = req.body.password;
@@ -43,6 +57,8 @@ app.post("/api/insert", (req, res) => {
     "INSERT INTO users_mod (username,email,password,userinfo) VALUES (?,?,?,'Enter info here!')";
   db.query(sqlInsert, [userName, email, password], (err, result) => {
     console.log(err);
+    console.log(result);
+    res.send(result);
   });
 });
 
