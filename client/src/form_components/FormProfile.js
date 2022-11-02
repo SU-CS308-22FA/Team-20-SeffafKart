@@ -14,7 +14,7 @@ function FormProfile() {
             <form>
                 <div className='form-profile-box-input'>
                     <label>Username</label>
-                    <input className='form-profile-username' type='text'  placeholder={user[0].userName}/>
+                    <input className='form-profile-username' type='text'  placeholder={user[0].username}/>
                 </div>
                 <div className='form-profile-box-input'>
                     <label>Email</label>
@@ -26,7 +26,7 @@ function FormProfile() {
                 </div>
                 <div className='form-profile-box-input'>
                     <label>About You</label>
-                    <textarea name='' id='' cols='30' rows='6' placeholder={user[0].userInfo}></textarea>
+                    <textarea name='' id='' cols='30' rows='6' placeholder={user[0].userinfo}></textarea>
                 </div>
                 <div>
                     <button className='form-profile-btn' onClick=''>Update Profile</button>
