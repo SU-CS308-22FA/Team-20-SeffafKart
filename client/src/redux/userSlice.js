@@ -12,8 +12,17 @@ const userSlice = createSlice({
     deleteUser: (state ,action) => {
       state.currentUser = [];
     },
-    updateUser: (state,action) => {
-      state.currentUser = action.payload;
+    updateUserName: (state,action) => {
+      state.currentUser[0].username = action.payload;
+    },
+    updateUserEmail: (state,action) => {
+      state.currentUser[0].email = action.payload;
+    },
+    updateUserPassword: (state,action) => {
+      state.currentUser[0].password = action.payload;
+    },
+    updateUserinfo: (state,action) => {
+      state.currentUser[0].userinfo = action.payload;
     },
     loginSuccessAdmin: (state, action) => {
       //state.isFetching = false;
@@ -36,5 +45,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { deleteUser, updateUser, loginSuccessAdmin, loginSuccessUser, loginFailure, logoutUser} = userSlice.actions;
+export const { deleteUser, updateUserName, updateUserEmail, loginSuccessAdmin, updateUserPassword, updateUserinfo, loginSuccessUser, loginFailure, logoutUser} = userSlice.actions;
 export default userSlice.reducer;

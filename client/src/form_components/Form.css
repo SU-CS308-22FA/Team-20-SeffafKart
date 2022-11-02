@@ -262,9 +262,9 @@ grid-template-columns: 1fr 1fr;*/
   }
 
   .form-profile-btn {
-    margin-top: 5rem;
-    width: 80%;
-    height: 50px;
+    margin-top: 1rem;
+    width: 40%;
+    height: 30px;
     border-radius: 2px;
     background: cadetblue;
     outline: none;
