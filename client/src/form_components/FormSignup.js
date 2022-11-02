@@ -19,7 +19,7 @@ const FormSignup = () => {
       email: email,
     }).then((err) => {
       alert("sucessfull insert");
-      console.log(err);
+      //console.log(err);
       if(err === null) {
         setSuccess(true);
       }

@@ -4,8 +4,14 @@ import useForm from "./useForm";
 import { Navigate } from 'react-router-dom';
 import Axios from "axios";
 import "./Form.css";
+import { useDispatch, useSelector } from "react-redux";
+import {loginSuccessUser} from '../redux/userSlice'
+
 
 function FormLogin() {
+  const user = useSelector((state) => state.user.currentUser);
+  const dispatch = useDispatch();
+
 
   const [password, SetPassword] = useState("");
   const [email, SetEmail] = useState("");
@@ -14,16 +20,16 @@ function FormLogin() {
 
   const [loginStatus, setLoginStatus] = useState("");
 
-  const userRef = useRef();
-  const errRef = useRef();
+  // const userRef = useRef();
+  // const errRef = useRef();
 
-  useEffect(() => {
-    userRef.current.focus();
-  }, [])
+  // useEffect(() => {
+  //   userRef.current.focus();
+  // }, [])
 
-  useEffect(() => {
-    setErrMsg('');
-  }, [email, password])
+  // useEffect(() => {
+  //   setErrMsg('');
+  // }, [email, password])
 
     
 
@@ -39,26 +45,19 @@ function FormLogin() {
           setLoginStatus(response.data.message)
         }
         else {
+          dispatch(loginSuccessUser({user: response.data}))
+          console.log(user)
           setSuccess(true)
         }
       });
   };
 
-  const { handleSubmit, values, errors } = useForm(validate);
-
-  const [details, setDetails] = useState({ email: "", password: "" });
-
-  const submitHandler = (e) => {
-    e.preventDefault();
-
-    //Login(details);
-  };
-
+  
   return (
     <>
     {success ? (
       <section>
-        <Navigate to="/" />
+        <Navigate to="/profile" />
       </section>
     ) : (
       <div className="form-content-right">
@@ -70,7 +69,6 @@ function FormLogin() {
             className="form-input"
             type="text"
             name="email"
-            ref={userRef}
             value={email}
             placeholder="Email"
             onChange={(e) => {

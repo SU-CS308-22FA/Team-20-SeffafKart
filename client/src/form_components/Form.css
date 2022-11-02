@@ -228,6 +228,10 @@ grid-template-columns: 1fr 1fr;*/
     outline: none;
   }
 
+  .form-profile-email::placeholder {
+    font-size: 1.2rem;
+  }
+
   .form-profile-password {
     width: 100%;
     border: 1px solid;
@@ -238,9 +242,12 @@ grid-template-columns: 1fr 1fr;*/
     outline: none;
   }
 
+  .form-profile-password {
+    font-size: 1.2rem;
+  }
+
   .form-profile-username::placeholder {
     font-size: 1.2rem;
-    color: #fff;
   }
 
   .form-profile-box-input textarea{
