@@ -9,6 +9,7 @@ import { Route, Routes} from 'react-router-dom';
 import {useState} from 'react';
 import Games from './Pages/Games';
 import Archive from './Pages/Archive';
+import AdministrativeAct from './AdminPages/AdministrativeAct';
 
 function App() {
   // const adminUser = {
@@ -50,6 +51,7 @@ function App() {
         <Route path='/profile' element={<Profile />}/>
         <Route path='/games' element={<Games />}/>
         <Route path='/archive' element={<Archive />}/>
+        <Route path='/admin-act' element={<AdministrativeAct />}/>
       </Routes>
       </div>   
     </>
