@@ -137,6 +137,22 @@ app.post("/api/insert", (req, res) => {
   });
 });
 
+app.post("/api/createact", (req, res) => {
+  const act_info = req.body.act_info;
+  const act_game = req.body.act_game;
+  const act_date = req.body.act_date;
+  const act_time = req.body.act_time;
+  const author_id = req.body.author_id;
+
+  const sqlInsert =
+    "INSERT INTO admin_act (author_id,act_info,act_date,act_time,act_game) VALUES (?,?,?,?,?)";
+    db.query(sqlInsert, [author_id, act_info, act_date, act_time, act_game], (err, result) => {
+    console.log(err);
+    console.log(result);
+    res.send(result);
+  });
+});
+
 app.listen(3001, () => {
   console.log("bruh");
 });

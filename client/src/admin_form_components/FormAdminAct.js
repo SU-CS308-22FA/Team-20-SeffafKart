@@ -1,24 +1,39 @@
 import React, {useState} from "react";
 import './FormAdmin.css'
 import Axios from "axios";
+import { useSelector } from "react-redux";
 
 function FormAdminAct() {
+    const user = useSelector((state) => state.user.currentUser);
+    const user_id = user[0].id
 
-    
-  const [actgame, setActGame] = useState("");
-  const [actinfo, setActInfo] = useState("");
-  const [actdate, setActDate] = useState("");
-  const [acttime, setActTime] = useState("");
+
+    const [actgame, setActGame] = useState("");
+    const [actinfo, setActInfo] = useState("");
+    const [actdate, setActDate] = useState("");
+    const [acttime, setActTime] = useState("");
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-          
+        Axios.post("http://localhost:3001/api/createact", {
+          author_id: user_id,
+          act_info: actinfo,
+          act_date: actdate,
+          act_time: acttime,
+          act_game: actgame
+        }).then((err) => {
+          alert("Act is successfully created");
+          //console.log(err);
+          if(err === null) {
+            console.log("act created")
+          }
+         });   
       };
 
   return (
     <div className="form-content-act">
         <h1 className="title-act">Create an Administrative Act</h1>
-      <form onSubmit={handleSubmit} className="form-act" noValidate>
+      <form className="form-act" noValidate>
         <div className="form-inputs-act">
         <label className="form-label-act">Enter the match the act belongs to</label>
         <input
@@ -72,7 +87,7 @@ function FormAdminAct() {
         />
         {/* {errors.username && <p>{errors.username}</p>} */}
         </div>
-        <button className="form-input-btn-act" type="submit">
+        <button className="form-input-btn-act" onClick={handleSubmit}>
           Submit
         </button>
       </form>
