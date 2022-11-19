@@ -7,6 +7,8 @@ import Home from './Pages/Home';
 import Profile from './Pages/Profile';
 import { Route, Routes} from 'react-router-dom';
 import {useState} from 'react';
+import Games from './Pages/Games';
+import Archive from './Pages/Archive';
 
 function App() {
   // const adminUser = {
@@ -46,6 +48,8 @@ function App() {
         <Route path='/sign-up' element={<Sign_up />}/>
         <Route path='/login' element={<Login />}/>
         <Route path='/profile' element={<Profile />}/>
+        <Route path='/games' element={<Games />}/>
+        <Route path='/archive' element={<Archive />}/>
       </Routes>
       </div>   
     </>
