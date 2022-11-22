@@ -7,7 +7,7 @@ const mysql = require("mysql2");
 const db = mysql.createPool({
   host: "localhost",
   user: "root",
-  password: "4125",
+  password: "password",
   database: "cruddatabase",
 });
 
@@ -168,6 +168,82 @@ app.get('/api/users_mod/:id', (req,res,next) => {
       if(err) {res.json("ERROR")}
       else {res.json(result)}
       })
+  }
+});
+
+app.get('/api/admin_acts/:admin_act_id', (req,res,next) => {
+  //res.json({message: "ok"});
+  if(req.params.admin_act_id !== undefined) {
+    db.query("SELECT * FROM admin_act WHERE admin_act_id = ?", [req.params.admin_act_id],(err, result,fields) => {
+      if(err) {res.json("ERROR")}
+      else {res.json(result)}
+    })
+  } 
+});
+
+app.put("/api/decreaseposrate", (req, res) => {
+  const admin_act_id = req.body.admin_act_id;
+  const user_id = req.body.user_id;
+
+  if(req.body.user_id !== undefined) {
+    const sqlUpdate = "UPDATE admin_act SET act_rate_pos = act_rate_pos - 1 WHERE admin_act_id = ?";
+     db.query(sqlUpdate,[admin_act_id] , (err, result) => {
+      if (err) {
+        console.log(err);
+        } else {
+        res.send(result);
+        }
+   })
+  }
+});
+
+app.put("/api/decreasenegrate", (req, res) => {
+  const admin_act_id = req.body.admin_act_id;
+  const user_id = req.body.user_id;
+
+  if(req.body.user_id !== undefined) {
+    const sqlUpdate = "UPDATE admin_act SET act_rate_neg = act_rate_neg - 1 WHERE admin_act_id = ?";
+     db.query(sqlUpdate,[admin_act_id] , (err, result) => {
+      if (err) {
+        console.log(err);
+        } else {
+        res.send(result);
+        }
+   })
+  }
+});
+
+app.put("/api/updateposrate", (req, res) => {
+  const admin_act_id = req.body.admin_act_id;
+  const act_rate_pos = req.body.act_rate_pos;
+  const user_id = req.body.user_id;
+
+  if(req.body.user_id !== undefined) {
+    const sqlUpdate = "UPDATE admin_act SET act_rate_pos = ? WHERE admin_act_id = ?";
+     db.query(sqlUpdate,[act_rate_pos,admin_act_id] , (err, result) => {
+      if (err) {
+        console.log(err);
+        } else {
+        res.send(result);
+        }
+   })
+  }
+});
+
+app.put("/api/updatenegrate", (req, res) => {
+  const admin_act_id = req.body.admin_act_id;
+  const act_rate_neg = req.body.act_rate_neg;
+  const user_id = req.body.user_id;
+
+  if(req.body.user_id !== undefined) {
+   const sqlUpdate = "UPDATE admin_act SET act_rate_neg = ? WHERE admin_act_id = ?";
+     db.query(sqlUpdate,[act_rate_neg, admin_act_id] , (err, result) => {
+      if (err) {
+        console.log(err);
+        } else {
+        res.send(result);
+        }
+   })
   }
 });
 
