@@ -1,11 +1,19 @@
-import React from 'react'
+import "./Archive.css";
+import Header from "../components/Header"
+import Posts from "../archive_components/Posts";
+import Sidebar from "../archive_components/Sidebar";
 
-function Archive() {
+export default function Archive() {
   return (
-    <div>
-      Archive
-    </div>
-  )
+    <>
+    <Header />
+      <div className="archive">
+        <Posts />
+        <Sidebar />
+      </div>
+    </>
+    
+  );
 }
 
-export default Archive
+
