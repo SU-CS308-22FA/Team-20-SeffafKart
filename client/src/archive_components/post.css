@@ -1,0 +1,94 @@
+.post{
+    display: flex;
+    margin: 0px 20px 40px 20px;
+    padding-bottom: 15px;
+    padding-top: 12px;
+    background-color: rgb(146, 219, 207);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.postInfo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+.postDate{
+    font-family: 'PT Sans', sans-serif;
+    font-size: 15px;
+    color:  rgb(75, 71, 41);
+    line-height: 20px;
+    margin-top: 15px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+
+.postTitle{
+    font-family: 'PT Sans', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+
+.postRate{
+    margin-top: 15px;
+    margin-right: 15px;
+    width: 1260px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
+.postIconLike{
+    color:rgb(52, 124, 52);
+    font-size:  25px;
+    margin-top: 10px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.postIconDislike{
+    color:rgb(124, 52, 52);
+    font-size:  25px;
+    margin-top: 10px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.postDesc{
+    font-family: 'Josefin Sans', serif;
+    font-size: 23px;
+    color: #555;
+    line-height: 24px;
+    margin-top: 15px;
+    margin-left: 300px;
+    margin-right: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+
+}
+
+.postTime{
+    font-family: 'Josefin Sans', serif;
+    font-size: 20px;
+    font-style: italic;
+    width: 250px;
+}
+
+.postBottom{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 500px;
+}

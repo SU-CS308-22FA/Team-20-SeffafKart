@@ -7,7 +7,7 @@ const mysql = require("mysql2");
 const db = mysql.createPool({
   host: "localhost",
   user: "root",
-  password: "password",
+  password: "4125",
   database: "cruddatabase",
 });
 
@@ -135,6 +135,40 @@ app.post("/api/insert", (req, res) => {
     console.log(result);
     res.send(result);
   });
+});
+
+app.post("/api/createact", (req, res) => {
+  const act_info = req.body.act_info;
+  const act_game = req.body.act_game;
+  const act_date = req.body.act_date;
+  const act_time = req.body.act_time;
+  const author_id = req.body.author_id;
+
+  const sqlInsert =
+    "INSERT INTO admin_act (author_id,act_info,act_date,act_time,act_game) VALUES (?,?,?,?,?)";
+    db.query(sqlInsert, [author_id, act_info, act_date, act_time, act_game], (err, result) => {
+    console.log(err);
+    console.log(result);
+    res.send(result);
+  });
+});
+
+app.get('/api/admin_acts', (req,res,next) => {
+  //res.json({message: "ok"});
+  db.query("SELECT * FROM admin_act", (err, result,fields) => {
+    if(err) {res.send("ERROR")}
+    else {res.send(result)}
+  })
+});
+
+app.get('/api/users_mod/:id', (req,res,next) => {
+  //res.json({message: "ok"});
+  if(req.params.id !== undefined) {
+    db.query("SELECT * FROM users_mod WHERE id = ?", [req.params.id],(err, result,fields) => {
+      if(err) {res.json("ERROR")}
+      else {res.json(result)}
+      })
+  }
 });
 
 app.listen(3001, () => {

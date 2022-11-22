@@ -37,6 +37,9 @@ const userSlice = createSlice({
       //state.isFetching = false;
       state.currentUser = action.payload.user;
       state.isLogin = true;
+      if(action.payload.user[0].isAdmin === 1) {
+        state.admin = true;
+      }
     },
     loginFailure: (state) => {
       //state.isFetching = false;

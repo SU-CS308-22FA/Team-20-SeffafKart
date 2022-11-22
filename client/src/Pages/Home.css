@@ -1,0 +1,34 @@
+.act-box {
+    width: 100%;
+    height: 60px;
+    background-color: darkgrey;
+    border-radius: 2%;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.act-button{
+    width: 30%;
+    height: 30px;
+    border-radius: 4px;
+    background: cadetblue;
+    outline: none;
+    border: none;
+    font-size: 1rem;
+    color: #fff;
+}
+
+.act-button:hover {
+    cursor: pointer;
+    background: linear-gradient(
+      90deg,
+      rgb(89, 122, 156) 0%,
+      rgb(116, 160, 236) 100%
+    );
+    transition: all 0.4s ease-out;
+  }
+
+.act-text {
+  color:#fff
+}

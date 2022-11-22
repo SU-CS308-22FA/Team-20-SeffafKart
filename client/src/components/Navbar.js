@@ -9,9 +9,7 @@ import {logoutUser} from '../redux/userSlice'
 function Navbar () {
     const path = window.location.pathname
     const user = useSelector((state) => state.user.currentUser);
-    console.log(user)
     const isLogin = useSelector((state) => state.user.isLogin);
-    console.log(isLogin)
     const dispatch = useDispatch();
 
     const [clicked, setClicked] = useState(false);
@@ -21,8 +19,6 @@ function Navbar () {
 
     const handleLogout = async (e) => {
         dispatch(logoutUser());
-        console.log("dis")
-        console.log(isLogin)
     }
 
     
