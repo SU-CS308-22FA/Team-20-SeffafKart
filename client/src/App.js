@@ -10,6 +10,7 @@ import {useState} from 'react';
 import Games from './Pages/Games';
 import Archive from './Pages/Archive';
 import AdministrativeAct from './AdminPages/AdministrativeAct';
+import CreateMatch from './AdminPages/CreateMatch';
 
 function App() {
   // const adminUser = {
@@ -52,6 +53,7 @@ function App() {
         <Route path='/games' element={<Games />}/>
         <Route path='/archive' element={<Archive />}/>
         <Route path='/admin-act' element={<AdministrativeAct />}/>
+        <Route path='/match' element={<CreateMatch />}/>
       </Routes>
       </div>   
     </>

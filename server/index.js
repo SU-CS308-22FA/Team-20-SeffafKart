@@ -171,6 +171,21 @@ app.get('/api/users_mod/:id', (req,res,next) => {
   }
 });
 
+app.post("/api/creatematch", (req, res) => {
+  const location = req.body.location;
+  const time = req.body.time;
+  const date = req.body.date;
+  const hometeam = req.body.home_team;
+  const awayteam = req.body.away_team;
+
+  const sqlInsert =
+    "INSERT INTO football_match (location,time,date,home_team,away_team) VALUES (?,?,?,?,?)";
+    db.query(sqlInsert, [location , time, date, hometeam, awayteam], (err, result) => {
+    console.log(err);
+    console.log(result);
+    res.send(result);
+  });
+
 app.get('/api/admin_acts/:admin_act_id', (req,res,next) => {
   //res.json({message: "ok"});
   if(req.params.admin_act_id !== undefined) {
