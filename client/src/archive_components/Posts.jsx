@@ -1,31 +1,51 @@
-import Post from "./Post"
+
+import "./post.css"
 import "./posts.css"
 import Axios from "axios";
-import React, { useState} from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+
 
 export default function Posts(){
-    const user = useSelector((state) => state.user.currentUser);
-    const [success, setSuccess] = useState(false);
-    const [adminActs, SetAdminActs] = useState("");
+    const [data, setData] = useState([])
 
-    const getAdminActs = async (e) => {
-        e.preventDefault();
-        Axios.get("http://localhost:3001/api/admin_acts", {
-        }).then((response) => {
-            console.log(response.data)
-            SetAdminActs(response.data)
-         });
-      };
-    
-      const listItems = adminActs.map((act) =>
-        <Post item={act} />
-        );
-      
+    useEffect(() => {
+        Axios.get('http://localhost:3001/api/admin_acts')
+        .then(res => {
+            console.log("Getting from ::::", res.data)
+            setData(res.data)
+        }).catch(err => console.log(err))
+    }, [])
+
+    const adminActs = data.map((data,index) =>{
+        return(
+            <div className="post">
+            <div className="postInfo">
+                <div className="postCats">
+                    <span className="postDate">{data.act_date}</span>
+                </div>
+                <span className="postTitle">
+                    {data.act_game}
+                </span>
+                <hr/>
+                <span className="postDesc">{data.act_info}</span>
+                <hr/>
+                <div className="postBottom">
+                    <span  className="postTime">posted at {data.act_time}</span>
+                    <hr/>
+                    <span className="postRate">
+                        <i className="postIconLike fas fa-thumbs-up"></i>
+                        <i className="postIconDislike fas fa-thumbs-down"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+        )
+    } )
+
 
     return (
         <div className="posts">
-            {listItems}
+            {adminActs}
         </div>
     )
 }
