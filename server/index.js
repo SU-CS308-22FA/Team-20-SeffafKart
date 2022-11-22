@@ -2,9 +2,10 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const app = express();
+const router = express.Router();
 const mysql = require("mysql2");
 
-const db = mysql.createPool({
+const db = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "password",
@@ -14,6 +15,24 @@ const db = mysql.createPool({
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.get('/api/admin_acts', (req,res,next) => {
+  //res.json({message: "ok"});
+  db.query("SELECT * FROM admin_act", (err, result,fields) => {
+    if(err) {res.send("ERROR")}
+    else {res.send(result)}
+  })
+});
+
+app.get('/api/users_mod/:id', (req,res,next) => {
+  //res.json({message: "ok"});
+  if(req.params.id !== undefined) {
+    db.query("SELECT * FROM users_mod WHERE id = ?", [req.params.id],(err, result,fields) => {
+      if(err) {res.json("ERROR")}
+      else {res.json(result)}
+    })
+  } 
+});
 
 app.post("/api/login", (req, res) => {
   const email = req.body.email;
