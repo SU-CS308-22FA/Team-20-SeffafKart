@@ -17,19 +17,21 @@ export default function Posts(){
     const [posclick, setPosClick] = useState(false);
     const [negclick, setNegClick] = useState(false);
     const [ctr, setCtr] = useState(0);
-     
+    const [voted, setVoted] = useState({});
+
 
     const handlePos = async (id,rate) => {
-        // if(!posclick && !negclick) {
-        //   posRate = posRate + 1;
-        //   setPosClick(true);
-        // } else if (!posclick && negclick) {
-        //   posRate = posRate + 1;
-        //   setPosClick(true);
-        //   handleDecNeg(id);
-        //   setNegClick(false);
-        // }
-        posRate = rate + 1;
+        if(voted[id] === "neg") {
+            setPosClick(true)
+            posRate = rate + 1;
+            handleDecNeg(id);
+        } else if (voted[id] === "pos" && posclick){
+            posRate = rate - 1;
+            setPosClick(false)
+        } else {
+            setPosClick(true)
+            posRate = rate + 1;
+        }
         setPosRate(posRate)
         Axios.put("http://localhost:3001/api/updateposrate", {
           act_rate_pos: posRate,
@@ -38,20 +40,23 @@ export default function Posts(){
         }).then((response) => {
             setCtr(ctr+1);
             alert("update");
+            voted[id] = "pos";
+            setVoted(voted);
         });
       }
 
     const handleNeg = async (id,rate) => {
-        // if(!posclick && !negclick) {
-        //   negRate = negRate + 1;
-        //   setNegClick(true);
-        // } else if (posclick && !negclick) {
-        //   negRate = negRate + 1;
-        //   setNegClick(true);
-        //   handleDecPos(id);
-        //   setPosClick(false);
-        // }
-        negRate = rate + 1;
+        if(voted[id] === "pos") {
+            negRate = rate + 1;
+            setNegClick(true)
+            handleDecPos(id);
+        } else if (voted[id] === "neg" && negclick){
+            negRate = rate - 1;
+            setNegClick(false)
+        } else {
+            setNegClick(true)
+            negRate = rate + 1;
+        }
         setNegRate(negRate)
         
         Axios.put("http://localhost:3001/api/updatenegrate", {
@@ -61,7 +66,25 @@ export default function Posts(){
         }).then((response) => {
             setCtr(ctr+1);
             alert("update");
+            voted[id] = "neg";
+            setVoted(voted);
         });
+      }
+
+      const handleDecPos = (id) => {
+        voted[id] = "";
+        Axios.put("http://localhost:3001/api/decreaseposrate", {
+          admin_act_id: id,
+          user_id: user[0].id,
+        })
+      }
+
+      const handleDecNeg = (id) => {
+        voted[id] = "";
+        Axios.put("http://localhost:3001/api/decreasenegrate", {
+          admin_act_id: id,
+          user_id: user[0].id,
+        })
       }
     
 
@@ -76,23 +99,9 @@ export default function Posts(){
     }, [ctr])
 
     
-      const handleDecNeg = (id) => {
-        negRate = negRate - 1;
-        setNegRate(negRate);
-        Axios.put("http://localhost:3001/api/updatenegrate", {
-          act_rate_neg: negRate,
-          admin_act_id: id,
-        })
-      }
+ 
     
-      const handleDecPos = (id) => {
-        posRate = posRate - 1;
-        setPosRate(posRate)
-        Axios.put("http://localhost:3001/api/updateposrate", {
-          act_rate_pos: posRate,
-          admin_act_id: id,
-        })
-      }
+     
     
     const adminActs = data.map((data,index) =>{
         return(

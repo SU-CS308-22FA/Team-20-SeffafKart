@@ -181,6 +181,38 @@ app.get('/api/admin_acts/:admin_act_id', (req,res,next) => {
   } 
 });
 
+app.put("/api/decreaseposrate", (req, res) => {
+  const admin_act_id = req.body.admin_act_id;
+  const user_id = req.body.user_id;
+
+  if(req.body.user_id !== undefined) {
+    const sqlUpdate = "UPDATE admin_act SET act_rate_pos = act_rate_pos - 1 WHERE admin_act_id = ?";
+     db.query(sqlUpdate,[admin_act_id] , (err, result) => {
+      if (err) {
+        console.log(err);
+        } else {
+        res.send(result);
+        }
+   })
+  }
+});
+
+app.put("/api/decreasenegrate", (req, res) => {
+  const admin_act_id = req.body.admin_act_id;
+  const user_id = req.body.user_id;
+
+  if(req.body.user_id !== undefined) {
+    const sqlUpdate = "UPDATE admin_act SET act_rate_neg = act_rate_neg - 1 WHERE admin_act_id = ?";
+     db.query(sqlUpdate,[admin_act_id] , (err, result) => {
+      if (err) {
+        console.log(err);
+        } else {
+        res.send(result);
+        }
+   })
+  }
+});
+
 app.put("/api/updateposrate", (req, res) => {
   const admin_act_id = req.body.admin_act_id;
   const act_rate_pos = req.body.act_rate_pos;
@@ -188,7 +220,7 @@ app.put("/api/updateposrate", (req, res) => {
 
   if(req.body.user_id !== undefined) {
     const sqlUpdate = "UPDATE admin_act SET act_rate_pos = ? WHERE admin_act_id = ?";
-     db.query(sqlUpdate,[act_rate_pos, admin_act_id] , (err, result) => {
+     db.query(sqlUpdate,[act_rate_pos,admin_act_id] , (err, result) => {
       if (err) {
         console.log(err);
         } else {
