@@ -262,3 +262,7 @@ app.put("/api/updatenegrate", (req, res) => {
    })
   }
 });
+
+app.listen(process.env.PORT || 3001, () => {
+  console.log("bruh");
+});
