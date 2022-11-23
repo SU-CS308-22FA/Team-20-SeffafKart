@@ -27,7 +27,7 @@ function FormProfile() {
 
     const updatePassword = (e) => {
         e.preventDefault();
-        Axios.put("http://localhost:3001/api/updatepassword", {
+        Axios.put("https://team-20-seffafkart-production.up.railway.app/api/updatepassword", {
           password: newPassword,
           id: userId,
         }).then((response) => {
@@ -38,7 +38,7 @@ function FormProfile() {
 
       const updateUsername = (e) => {
         e.preventDefault();
-        Axios.put("http://localhost:3001/api/updateusername", {
+        Axios.put("https://team-20-seffafkart-production.up.railway.app/api/updateusername", {
           userName: newUsername,
           id: userId,
         }).then((response) => {
@@ -49,7 +49,7 @@ function FormProfile() {
     
       const updateEmail = (e) => {
         e.preventDefault();
-        Axios.put("http://localhost:3001/api/updateemail", {
+        Axios.put("https://team-20-seffafkart-production.up.railway.app/api/updateemail", {
           email: newEmail,
           id: userId,
         }).then((response) => {
@@ -60,7 +60,7 @@ function FormProfile() {
     
       const updateUserInfo = (e) => {
         e.preventDefault();
-        Axios.put("http://localhost:3001/api/updateuserinfo", {
+        Axios.put("https://team-20-seffafkart-production.up.railway.app/api/updateuserinfo", {
           userInfo: newUserInfo,
           id: userId,
         }).then((response) => {
@@ -71,7 +71,7 @@ function FormProfile() {
     
       const deleteUser = (e) => {
         e.preventDefault();
-        Axios.delete(`http://localhost:3001/api/delete/${user[0].username}`)
+        Axios.delete(`https://team-20-seffafkart-production.up.railway.app/api/delete/${user[0].username}`)
         .then((response) => {
             setDeleted(true);
             dispatch(logoutUser)
