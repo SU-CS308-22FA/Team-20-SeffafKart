@@ -262,7 +262,3 @@ app.put("/api/updatenegrate", (req, res) => {
    })
   }
 });
-
-app.listen(3001, () => {
-  console.log("bruh");
-});
