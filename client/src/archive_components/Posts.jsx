@@ -89,7 +89,7 @@ export default function Posts(){
     
 
     useEffect(() => {
-        Axios.get('http://localhost:3001/api/admin_acts')
+        Axios.get('https://server-production-a1a2.up.railway.app/api/admin_acts')
         .then(res => {
             console.log("Getting from ::::", res.data)
             setData(res.data)
