@@ -1,40 +1,78 @@
-import React, {Component} from 'react';
+import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
 import {MenuItems} from './MenuItems';
+import { useDispatch, useSelector } from "react-redux";
 import './Navbar.css'
+import {logoutUser} from '../redux/userSlice'
 
 
-class Navbar extends Component {
+function Navbar () {
+    const path = window.location.pathname
+    const user = useSelector((state) => state.user.currentUser);
+    const isLogin = useSelector((state) => state.user.isLogin);
+    const dispatch = useDispatch();
 
-    state = { clicked: false}
-
-    handleClick = () => {
-        this.setState({clicked: !this.state.clicked})
+    const [clicked, setClicked] = useState(false);
+    const handleClick = () => {
+        setClicked(!clicked)
     }
 
-    render() { 
-        const path = window.location.pathname
-
-        return(
-            <nav className='NavbarItems'>
-                <Link to="/" style={{textDecoration:'none'}}><h1 className='navbar-logo'>ŞEFFAF KART</h1></Link>
-                <div className='menu-icon' onClick={this.handleClick}>
-                    <i className={this.state.clicked ? 'fas fa-times' : 'fas fa-bars'}></i>
-                </div>
-                <ul className={this.state.clicked ? 'nav-menu active' : 'nav-menu'}>
-                    {MenuItems.map((item,index) => {
-                        return (
-                            <li key={index}>
-                                <Link className={item.cName} to={item.url}>
-                                    {item.title}
-                                </Link>
-                            </li>
-                        )
-                    })}
-                </ul>
-            </nav>
-        )
+    const handleLogout = async (e) => {
+        dispatch(logoutUser());
     }
+
+    
+
+    return(
+        <nav className='NavbarItems'>
+            <Link to="/" style={{textDecoration:'none'}}><h1 className='navbar-logo'>ŞEFFAF KART</h1></Link>
+            <div className='menu-icon' onClick={handleClick}>
+                <i className={clicked ? 'fas fa-times' : 'fas fa-bars'}></i>
+            </div>
+            <ul className={clicked ? 'nav-menu active' : 'nav-menu'}>
+                <li>
+                    <Link className="nav-links" to="/">
+                        Home
+                    </Link>
+                </li>
+                <li>
+                    <Link className="nav-links" to="/archive">
+                        Archive
+                    </Link>
+                </li>
+                <li>
+                    <Link className="nav-links" to="/games">
+                        Matches
+                    </Link>
+                </li>
+                <li>
+                    <Link className="nav-links" to="/sign-up">
+                        Sign Up
+                    </Link>
+                </li>
+                {isLogin? (
+                <>
+                <li>
+                    <Link className="nav-links" to="/profile">
+                        Profile
+                    </Link>
+                </li>
+                <li>
+                    <Link className="nav-links" to="/" onClick={handleLogout}>
+                        Log out
+                    </Link>
+                </li>
+                </>) : (
+                <li>
+                    <Link className="nav-links" to="/login">
+                        Login
+                    </Link>
+                </li>
+                )}
+            </ul>
+        </nav>
+    )
+    
 }
 
 export default Navbar

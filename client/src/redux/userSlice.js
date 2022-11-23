@@ -4,6 +4,8 @@ const userSlice = createSlice({
   name: "user",
   initialState: {
     currentUser: [],
+    admin: false,
+    isLogin: false
     //isFetching: false,
     // error: false,
     // admin: false
@@ -11,6 +13,7 @@ const userSlice = createSlice({
   reducers: {
     deleteUser: (state ,action) => {
       state.currentUser = [];
+      state.isLogin = false;
     },
     updateUserName: (state,action) => {
       state.currentUser[0].username = action.payload;
@@ -27,18 +30,25 @@ const userSlice = createSlice({
     loginSuccessAdmin: (state, action) => {
       //state.isFetching = false;
       state.currentUser = action.payload;
-      //state.admin = true;
+      state.isLogin = true;
+      state.admin = true;
     },
     loginSuccessUser: (state, action) => {
       //state.isFetching = false;
       state.currentUser = action.payload.user;
+      state.isLogin = true;
+      if(action.payload.user[0].isAdmin === 1) {
+        state.admin = true;
+      }
     },
     loginFailure: (state) => {
       //state.isFetching = false;
       //state.error = true;
     },
-    logoutUser: (state,action) => {
+    logoutUser: (state) => {
       state.currentUser = [];
+      state.isLogin = false;
+      state.admin = false;
       // state.error = false;
       // state.admin = false;
     }

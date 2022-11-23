@@ -137,6 +137,131 @@ app.post("/api/insert", (req, res) => {
   });
 });
 
+app.post("/api/createact", (req, res) => {
+  const act_info = req.body.act_info;
+  const act_game = req.body.act_game;
+  const act_date = req.body.act_date;
+  const act_time = req.body.act_time;
+  const author_id = req.body.author_id;
+
+  const sqlInsert =
+    "INSERT INTO admin_act (author_id,act_info,act_date,act_time,act_game) VALUES (?,?,?,?,?)";
+    db.query(sqlInsert, [author_id, act_info, act_date, act_time, act_game], (err, result) => {
+    console.log(err);
+    console.log(result);
+    res.send(result);
+  });
+});
+
+app.get('/api/admin_acts', (req,res,next) => {
+  //res.json({message: "ok"});
+  db.query("SELECT * FROM admin_act", (err, result,fields) => {
+    if(err) {res.send("ERROR")}
+    else {res.send(result)}
+  })
+});
+
+app.get('/api/users_mod/:id', (req,res,next) => {
+  //res.json({message: "ok"});
+  if(req.params.id !== undefined) {
+    db.query("SELECT * FROM users_mod WHERE id = ?", [req.params.id],(err, result,fields) => {
+      if(err) {res.json("ERROR")}
+      else {res.json(result)}
+      })
+  }
+});
+
+app.post("/api/creatematch", (req, res) => {
+  const location = req.body.location;
+  const time = req.body.time;
+  const date = req.body.date;
+  const hometeam = req.body.home_team;
+  const awayteam = req.body.away_team;
+
+  const sqlInsert =
+    "INSERT INTO football_match (location,time,date,home_team,away_team) VALUES (?,?,?,?,?)";
+    db.query(sqlInsert, [location , time, date, hometeam, awayteam], (err, result) => {
+    console.log(err);
+    console.log(result);
+    res.send(result);
+  });
+
+app.get('/api/admin_acts/:admin_act_id', (req,res,next) => {
+  //res.json({message: "ok"});
+  if(req.params.admin_act_id !== undefined) {
+    db.query("SELECT * FROM admin_act WHERE admin_act_id = ?", [req.params.admin_act_id],(err, result,fields) => {
+      if(err) {res.json("ERROR")}
+      else {res.json(result)}
+    })
+  } 
+});
+
+app.put("/api/decreaseposrate", (req, res) => {
+  const admin_act_id = req.body.admin_act_id;
+  const user_id = req.body.user_id;
+
+  if(req.body.user_id !== undefined) {
+    const sqlUpdate = "UPDATE admin_act SET act_rate_pos = act_rate_pos - 1 WHERE admin_act_id = ?";
+     db.query(sqlUpdate,[admin_act_id] , (err, result) => {
+      if (err) {
+        console.log(err);
+        } else {
+        res.send(result);
+        }
+   })
+  }
+});
+
+app.put("/api/decreasenegrate", (req, res) => {
+  const admin_act_id = req.body.admin_act_id;
+  const user_id = req.body.user_id;
+
+  if(req.body.user_id !== undefined) {
+    const sqlUpdate = "UPDATE admin_act SET act_rate_neg = act_rate_neg - 1 WHERE admin_act_id = ?";
+     db.query(sqlUpdate,[admin_act_id] , (err, result) => {
+      if (err) {
+        console.log(err);
+        } else {
+        res.send(result);
+        }
+   })
+  }
+});
+
+app.put("/api/updateposrate", (req, res) => {
+  const admin_act_id = req.body.admin_act_id;
+  const act_rate_pos = req.body.act_rate_pos;
+  const user_id = req.body.user_id;
+
+  if(req.body.user_id !== undefined) {
+    const sqlUpdate = "UPDATE admin_act SET act_rate_pos = ? WHERE admin_act_id = ?";
+     db.query(sqlUpdate,[act_rate_pos,admin_act_id] , (err, result) => {
+      if (err) {
+        console.log(err);
+        } else {
+        res.send(result);
+        }
+   })
+  }
+});
+
+app.put("/api/updatenegrate", (req, res) => {
+  const admin_act_id = req.body.admin_act_id;
+  const act_rate_neg = req.body.act_rate_neg;
+  const user_id = req.body.user_id;
+
+  if(req.body.user_id !== undefined) {
+   const sqlUpdate = "UPDATE admin_act SET act_rate_neg = ? WHERE admin_act_id = ?";
+     db.query(sqlUpdate,[act_rate_neg, admin_act_id] , (err, result) => {
+      if (err) {
+        console.log(err);
+        } else {
+        res.send(result);
+        }
+   })
+  }
+});
+
 app.listen(3001, () => {
   console.log("bruh");
 });

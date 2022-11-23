@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {Link} from 'react-router-dom';
 
 
-function Home() {
+function Games() {
 
   const user = useSelector((state) => state.user.currentUser);
   const isLogin = useSelector((state) => state.user.isLogin);
@@ -20,15 +20,15 @@ function Home() {
     (
     <div className="act-box">
       <button className="act-button" onClick={handleClick}>
-        <Link className="act-text" style={{textDecoration:'none'}} to="/admin-act">ADD ADMINISTRATIVE ACT</Link>
+        <Link className="act-text" style={{textDecoration:'none'}} to="/match">ADD FOOTBALL MATCH</Link>
       </button>
     </div>
     ) :
     (<div>
-      HOME
+      GAMES
     </div>)}
     </>
   )
 }
 
-export default Home
+export default Games
