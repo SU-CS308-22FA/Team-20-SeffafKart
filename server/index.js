@@ -184,7 +184,7 @@ app.post("/api/creatematch", (req, res) => {
     db.query(sqlInsert, [location , time, date, hometeam, awayteam], (err, result) => {
     console.log(err);
     console.log(result);
-    res.send(result);
+    res.send(result);})
   });
 
 app.get('/api/admin_acts/:admin_act_id', (req,res,next) => {
