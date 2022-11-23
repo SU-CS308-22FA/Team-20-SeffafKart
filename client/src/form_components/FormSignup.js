@@ -13,7 +13,7 @@ const FormSignup = () => {
 
   const submitReview = async (e) => {
     e.preventDefault();
-    Axios.post("http://localhost:3001/api/insert", {
+    Axios.post("https://client-production-1aff.up.railway.app/api/insert", {
       userName: userName,
       password: password,
       email: email,
