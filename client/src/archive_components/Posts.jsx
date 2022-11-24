@@ -33,7 +33,7 @@ export default function Posts(){
             posRate = rate + 1;
         }
         setPosRate(posRate)
-        Axios.put("http://localhost:3001/api/updateposrate", {
+        Axios.put("https://seffafkart-client.onrender.com/api/updateposrate", {
           act_rate_pos: posRate,
           admin_act_id: id,
           user_id: user[0].id,
@@ -59,7 +59,7 @@ export default function Posts(){
         }
         setNegRate(negRate)
         
-        Axios.put("http://localhost:3001/api/updatenegrate", {
+        Axios.put("https://seffafkart-client.onrender.com/api/updatenegrate", {
           act_rate_neg: negRate,
           admin_act_id: id,
           user_id: user[0].id,
@@ -73,7 +73,7 @@ export default function Posts(){
 
       const handleDecPos = (id) => {
         voted[id] = "";
-        Axios.put("http://localhost:3001/api/decreaseposrate", {
+        Axios.put("https://seffafkart-client.onrender.com/api/decreaseposrate", {
           admin_act_id: id,
           user_id: user[0].id,
         })
@@ -81,7 +81,7 @@ export default function Posts(){
 
       const handleDecNeg = (id) => {
         voted[id] = "";
-        Axios.put("http://localhost:3001/api/decreasenegrate", {
+        Axios.put("https://seffafkart-client.onrender.com/api/decreasenegrate", {
           admin_act_id: id,
           user_id: user[0].id,
         })
@@ -89,7 +89,7 @@ export default function Posts(){
     
 
     useEffect(() => {
-        Axios.get('https://server-production-a1a2.up.railway.app/api/admin_acts')
+        Axios.get('https://seffafkart-client.onrender.com/api/admin_acts')
         .then(res => {
             console.log("Getting from ::::", res.data)
             setData(res.data)
