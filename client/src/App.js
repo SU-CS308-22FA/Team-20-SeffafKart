@@ -50,8 +50,8 @@ function App() {
         <Route path='/sign-up' element={<Sign_up />}/>
         <Route path='/login' element={<Login />}/>
         <Route path='/profile' element={<Profile />}/>
-        <Route path='/games' element={<Games />}/>
-        <Route path='/archive' element={<Archive />}/>
+        <Route path='/contact-us' element={<Games />}/>
+        <Route path='/referees' element={<Home />}/>
         <Route path='/admin-act' element={<AdministrativeAct />}/>
         <Route path='/match' element={<CreateMatch />}/>
       </Routes>

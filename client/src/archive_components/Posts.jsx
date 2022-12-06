@@ -4,9 +4,13 @@ import "./posts.css"
 import Axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import {Link} from 'react-router-dom';
 
 
 export default function Posts(){
+    const isAdmin = useSelector((state) => state.user.admin);
+    //const isAdmin = true;
+    console.log(isAdmin)
 
     const user = useSelector((state) => state.user.currentUser);
     const [data, setData] = useState([])
@@ -89,7 +93,7 @@ export default function Posts(){
     
 
     useEffect(() => {
-        Axios.get('http://localhost:3001/api/admin_acts')
+        Axios.get('http://localhost:3001/api/football_match')
         .then(res => {
             console.log("Getting from ::::", res.data)
             setData(res.data)
@@ -108,25 +112,31 @@ export default function Posts(){
             <div className="post">
             <div className="postInfo">
                 <div className="postCats">
-                    <span className="postDate">{data.act_date}</span>
+                    <span className="postDate">{data.date}</span>
                 </div>
                 <span className="postTitle">
-                    {data.act_game}
+                {data.home_team} -  {data.away_team}
                 </span>
                 <hr/>
-                <span className="postDesc">{data.act_info}</span>
                 <hr/>
                 <div className="postBottom">
-                    <span  className="postTime">posted at {data.act_time}</span>
+                    <span  className="postTime">Match time: {data.time}</span>
                     <hr/>
-                    <span className="postRate">
-                        <label>{data.act_rate_pos}</label>
-                        <i className="postIconLike fas fa-thumbs-up" onClick={() => handlePos(data.admin_act_id,data.act_rate_pos)}></i>
-                        <i className="postIconDislike fas fa-thumbs-down" onClick={() => handleNeg(data.admin_act_id,data.act_rate_neg)}></i>
-                        <label>  {data.act_rate_neg}</label>
-                    </span>
+                    <span className="postTime">Location: {data.location}</span>
                 </div>
             </div>
+            {isAdmin? 
+            (
+            <div className="admin-btn">
+                <button className="admin-button">
+                <Link className="text" style={{textDecoration:'none'}} to="/admin-act">Add Administrative Act</Link>
+                </button>
+                <button className="admin-button">
+                <Link className="text" style={{textDecoration:'none'}} to="/admin-act">Assign Referee</Link>
+                </button>
+            </div>
+            ) :
+            (<></>)}
         </div>
         )
     } )

@@ -6,13 +6,12 @@ import Sidebar from "../archive_components/Sidebar";
 export default function Archive() {
   return (
     <>
-    <Header />
+      <Header />
       <div className="archive">
         <Posts />
         <Sidebar />
       </div>
     </>
-    
   );
 }
 

@@ -34,20 +34,6 @@ app.post("/api/login", (req, res) => {
   });
 });
 
-// app.put("/api/update", (req, res) => {
-//   const id = req.body.id;
-//   const name = req.body.userName;
-//   const pass = req.body.password;
-//   const email = req.body.email;
-//   const info = req.body.userInfo;
-
-//   const sqlUpdate = "UPDATE users SET userName = ?, password = ?, email = ?, userInfo = ? WHERE id = ?";
-
-//     db.query(sqlUpdate,[name, pass, email, info, id] , (err, result) => {
-//       if (err) console.log(err);
-//     })
-// });
-
 app.delete("/api/delete/:userName", (req, res) => {
   const name = req.params.userName;
 
@@ -161,6 +147,15 @@ app.get('/api/admin_acts', (req,res,next) => {
   })
 });
 
+app.get('/api/football_match', (req,res,next) => {
+  //res.json({message: "ok"});
+  db.query("SELECT * FROM football_match", (err, result,fields) => {
+    if(err) {res.send("ERROR")}
+    else {res.send(result)}
+  })
+});
+
+
 app.get('/api/users_mod/:id', (req,res,next) => {
   //res.json({message: "ok"});
   if(req.params.id !== undefined) {
@@ -184,7 +179,8 @@ app.post("/api/creatematch", (req, res) => {
     console.log(err);
     console.log(result);
     res.send(result);
-  });
+  })
+});
 
 app.get('/api/admin_acts/:admin_act_id', (req,res,next) => {
   //res.json({message: "ok"});
