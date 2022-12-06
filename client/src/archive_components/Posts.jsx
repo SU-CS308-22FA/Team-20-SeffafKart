@@ -10,7 +10,6 @@ import {Link} from 'react-router-dom';
 export default function Posts(){
     const isAdmin = useSelector((state) => state.user.admin);
     //const isAdmin = true;
-    console.log(isAdmin)
 
     const user = useSelector((state) => state.user.currentUser);
     const [data, setData] = useState([])
@@ -95,7 +94,6 @@ export default function Posts(){
     useEffect(() => {
         Axios.get('http://localhost:3001/api/football_match')
         .then(res => {
-            console.log("Getting from ::::", res.data)
             setData(res.data)
         }).catch(err => console.log(err))
         console.log("ne zaman")
@@ -114,9 +112,11 @@ export default function Posts(){
                 <div className="postCats">
                     <span className="postDate">{data.date}</span>
                 </div>
+                <Link style={{textDecoration:'none'}} to="/game" state={data.match_id}>
                 <span className="postTitle">
                 {data.home_team} -  {data.away_team}
                 </span>
+                </Link>
                 <hr/>
                 <hr/>
                 <div className="postBottom">
@@ -129,7 +129,7 @@ export default function Posts(){
             (
             <div className="admin-btn">
                 <button className="admin-button">
-                <Link className="text" style={{textDecoration:'none'}} to="/admin-act">Add Administrative Act</Link>
+                <Link className="text" style={{textDecoration:'none'}} to="/admin-act" state={data.match_id}>Add Administrative Act</Link>
                 </button>
                 <button className="admin-button">
                 <Link className="text" style={{textDecoration:'none'}} to="/admin-act">Assign Referee</Link>
@@ -137,7 +137,8 @@ export default function Posts(){
             </div>
             ) :
             (<></>)}
-        </div>
+            </div>
+            
         )
     } )
 

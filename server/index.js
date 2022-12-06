@@ -125,14 +125,14 @@ app.post("/api/insert", (req, res) => {
 
 app.post("/api/createact", (req, res) => {
   const act_info = req.body.act_info;
-  const act_game = req.body.act_game;
+  const match_id = req.body.match_id;
   const act_date = req.body.act_date;
   const act_time = req.body.act_time;
   const author_id = req.body.author_id;
 
   const sqlInsert =
-    "INSERT INTO admin_act (author_id,act_info,act_date,act_time,act_game) VALUES (?,?,?,?,?)";
-    db.query(sqlInsert, [author_id, act_info, act_date, act_time, act_game], (err, result) => {
+    "INSERT INTO admin_act (author_id,act_info,act_date,act_time,match_id) VALUES (?,?,?,?,?)";
+    db.query(sqlInsert, [author_id, act_info, act_date, act_time, match_id], (err, result) => {
     console.log(err);
     console.log(result);
     res.send(result);
@@ -155,6 +155,35 @@ app.get('/api/football_match', (req,res,next) => {
   })
 });
 
+app.get('/api/football_match/:match_id', (req,res,next) => {
+  //res.json({message: "ok"});
+  if(req.params.match_id !== undefined) {
+    db.query("SELECT * FROM football_match WHERE match_id = ?", [req.params.match_id],(err, result,fields) => {
+      if(err) {res.json("ERROR")}
+      else {res.json(result)}
+    })
+  } 
+});
+
+app.get('/api/admin_acts/match_id=:match_id', (req,res,next) => {
+  //res.json({message: "ok"});
+  if(req.params.match_id !== undefined) {
+    db.query("SELECT * FROM admin_act WHERE match_id = ?", [req.params.match_id],(err, result,fields) => {
+      if(err) {res.json("ERROR")}
+      else {res.json(result)}
+    })
+  } 
+});
+
+app.get('/api/admin_acts/:admin_act_id', (req,res,next) => {
+  //res.json({message: "ok"});
+  if(req.params.admin_act_id !== undefined) {
+    db.query("SELECT * FROM admin_act WHERE admin_act_id = ?", [req.params.admin_act_id],(err, result,fields) => {
+      if(err) {res.json("ERROR")}
+      else {res.json(result)}
+    })
+  } 
+});
 
 app.get('/api/users_mod/:id', (req,res,next) => {
   //res.json({message: "ok"});
@@ -180,16 +209,6 @@ app.post("/api/creatematch", (req, res) => {
     console.log(result);
     res.send(result);
   })
-});
-
-app.get('/api/admin_acts/:admin_act_id', (req,res,next) => {
-  //res.json({message: "ok"});
-  if(req.params.admin_act_id !== undefined) {
-    db.query("SELECT * FROM admin_act WHERE admin_act_id = ?", [req.params.admin_act_id],(err, result,fields) => {
-      if(err) {res.json("ERROR")}
-      else {res.json(result)}
-    })
-  } 
 });
 
 app.put("/api/decreaseposrate", (req, res) => {
