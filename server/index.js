@@ -7,7 +7,7 @@ const mysql = require("mysql2");
 const db = mysql.createPool({
   host: "localhost",
   user: "root",
-  password: "password",
+  password: "4125",
   database: "cruddatabase",
 });
 
@@ -276,6 +276,24 @@ app.put("/api/updatenegrate", (req, res) => {
    })
   }
 });
+
+app.put("/api/assignofficials", (req, res) => {
+  const match_id = req.body.match_id;
+  const main_referee = req.body.main_referee;
+  const first_assistant_referee = req.body.first_assistant_referee;
+  const second_assistant_referee = req.body.second_assistant_referee;
+
+   const sqlUpdate = "UPDATE football_match SET main_referee = ?, first_assistant_referee = ?, second_assistant_referee = ? WHERE match_id = ?";
+ 
+     db.query(sqlUpdate,[main_referee,first_assistant_referee, second_assistant_referee, match_id] , (err, result) => {
+      if (err) {
+        console.log(err);
+        } else {
+        res.send(result);
+        }
+   })
+});
+
 
 app.listen(3001, () => {
   console.log("bruh");

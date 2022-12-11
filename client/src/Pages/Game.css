@@ -55,6 +55,9 @@
 }
 
 .referee-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     flex: 1;
     height: 200px;
     background-color: rgb(168, 196, 195);
@@ -121,4 +124,24 @@
     align-items: flex-end;
     justify-content: flex-end;
     margin-bottom: 8px;
+}
+
+.referee-text {
+    display: flex;
+    margin-top: 1rem;
+    flex-direction: column;
+    align-items: center;
+    font-size: 120%;
+    font-family: 'PT Sans', sans-serif;
+    color: rgb(65, 34, 14)
+}
+.referee-title {
+    display: flex;
+    margin-top: 1rem;
+    flex-direction: column;
+    align-items: center;
+    font-weight: bold;
+    font-size: 140%;
+    font-family: 'PT Sans', sans-serif;
+    color: rgb(65, 34, 14)
 }

@@ -11,7 +11,7 @@ function Game(props) {
   const [admin_acts, setAdminActs] = useState([]);
   const match_id = location.state;
   const user = useSelector((state) => state.user.currentUser);
-
+  let text = ""
   let posRate = 0
   let negRate = 0
   const [pR, setPosRate] = useState();
@@ -101,6 +101,18 @@ const handleNeg = async (id,rate) => {
     console.log("ne zaman")
 }, [ctr])
 
+  if(match_data.main_referee != null){
+    text = <div className='referee-container'>
+              <text className='referee-text'>Main Official: {match_data.main_referee}</text>
+              <text className='referee-text'>1st Assistant Official: {match_data.first_assistant_referee}</text>
+              <text className='referee-text'>2nd Assistant Official: {match_data.second_assistant_referee}</text>
+          </div>
+  }
+  else{
+    text = <div className='referee-container'>
+      <text className='referee-text'>Referees not yet assigned.</text>
+    </div>
+}
 
 const adminActs = admin_acts.map((act, index) => {
   return (
@@ -145,8 +157,9 @@ const adminActs = admin_acts.map((act, index) => {
             {adminActs}
           </div>
           <div className='referee-container'>
-
-          </div>
+            <text className='referee-title'>Referees</text>
+            {text}
+          </div > 
         </div>
     </div>
     </>
