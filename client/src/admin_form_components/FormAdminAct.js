@@ -2,11 +2,17 @@ import React, {useState} from "react";
 import './FormAdmin.css'
 import Axios from "axios";
 import { useSelector } from "react-redux";
+import {useLocation} from "react-router-dom";
 
-function FormAdminAct() {
+function FormAdminAct(props) {
+    const location = useLocation();
+    console.log(props, "props");
+    console.log(location, "location")
     const user = useSelector((state) => state.user.currentUser);
     const user_id = user[0].id
 
+    const match_id = location.state;
+    console.log(match_id)
 
     const [actgame, setActGame] = useState("");
     const [actinfo, setActInfo] = useState("");
@@ -20,14 +26,14 @@ function FormAdminAct() {
           act_info: actinfo,
           act_date: actdate,
           act_time: acttime,
-          act_game: actgame
+          match_id: match_id
         }).then((err) => {
           alert("Act is successfully created");
           //console.log(err);
           if(err === null) {
             console.log("act created")
           }
-         });   
+         });  
       };
 
   return (
