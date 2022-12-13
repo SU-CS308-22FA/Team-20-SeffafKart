@@ -149,7 +149,7 @@ app.get('/api/admin_acts', (req,res,next) => {
 
 app.get('/api/football_match', (req,res,next) => {
   //res.json({message: "ok"});
-  db.query("SELECT * FROM football_match", (err, result,fields) => {
+  db.query("SELECT * FROM football_match ORDER BY match_id DESC", (err, result,fields) => {
     if(err) {res.send("ERROR")}
     else {res.send(result)}
   })
@@ -209,6 +209,65 @@ app.post("/api/creatematch", (req, res) => {
     console.log(result);
     res.send(result);
   })
+});
+
+app.post("/api/rateadminact", (req,res) => {
+  const user_id = req.body.user_id;
+  const rate_type = req.body.rate_type;
+  const act_id = req.body.act_id;
+
+  if(req.body.user_id !== undefined) {
+    const sqlUpdate = "INSERT INTO rate_act (user_id,rate_type,act_id) VALUES (?,?,?)";
+     db.query(sqlUpdate,[user_id,rate_type,act_id] , (err, result) => {
+      if (err) {
+        console.log(err);
+        } else {
+        res.send(result);
+        }
+   })
+  }
+})
+
+app.get("/api/ratingadminact/act_id=:act_id&user_id=:user_id", (req,res) => {
+  if(req.params.act_id !== undefined && req.params.user_id !== undefined) {
+    db.query("SELECT * FROM rate_act WHERE act_id = ? AND user_id = ?", [req.params.act_id,req.params.user_id],(err, result,fields) => {
+      if(err) {res.json("ERROR")}
+      else {res.json(result)
+      console.log(result)}
+    })
+  } 
+})
+
+app.put("/api/updaterateadminact", (req,res) => {
+  const user_id = req.body.user_id;
+  const rate_type = req.body.rate_type;
+  const act_id = req.body.act_id;
+
+  if(req.body.user_id !== undefined) {
+    const sqlUpdate = "UPDATE rate_act SET rate_type = ? WHERE user_id = ? AND act_id = ?";
+     db.query(sqlUpdate,[rate_type,user_id,act_id] , (err, result) => {
+      if (err) {
+        console.log(err);
+        } else {
+        res.send(result);
+        }
+   })
+  }
+})
+
+app.delete("/api/deleterate/:id", (req, res) => {
+  const id = req.params.id;
+
+  const sqlDelete = "DELETE FROM rate_act WHERE id = ?";
+
+    db.query(sqlDelete, id, (err, result) => {
+      if (err) {
+        console.log(err);
+      }
+      else {
+        res.send(result);
+      }
+   })
 });
 
 app.put("/api/decreaseposrate", (req, res) => {
@@ -276,6 +335,80 @@ app.put("/api/updatenegrate", (req, res) => {
    })
   }
 });
+
+app.put("/api/assignofficials", (req, res) => {
+  const match_id = req.body.match_id;
+  const main_referee = req.body.main_referee;
+  const first_assistant_referee = req.body.first_assistant_referee;
+  const second_assistant_referee = req.body.second_assistant_referee;
+
+   const sqlUpdate = "UPDATE football_match SET main_referee = ?, first_assistant_referee = ?, second_assistant_referee = ? WHERE match_id = ?";
+ 
+     db.query(sqlUpdate,[main_referee,first_assistant_referee, second_assistant_referee, match_id] , (err, result) => {
+      if (err) {
+        console.log(err);
+        } else {
+        res.send(result);
+        }
+   })
+});
+
+app.post("/api/ratereferee", (req, res) => {
+  const match_id = req.body.match_id;
+  const user_id = req.body.user_id;
+  const value = req.body.value;
+  const referee_num = req.body.referee_num;
+
+  if(req.body.user_id !== undefined) {
+    const sqlUpdate = "INSERT INTO rate_referee (match_id,user_id,value,referee_num) VALUES (?,?,?,?)";
+    db.query(sqlUpdate,[match_id,user_id, value, referee_num] , (err, result) => {
+     if (err) {
+       console.log(err);
+       } else {
+       res.send(result);
+       }
+  })
+  }
+});
+
+app.get("/api/ratingreferee/match_id=:match_id&user_id=:user_id&referee_num=:referee_num", (req,res) => {
+
+  if(req.params.match_id !== undefined && req.params.user_id !== undefined && req.params.referee_num !== undefined) {
+    db.query("SELECT * FROM rate_referee WHERE match_id = ? AND user_id = ? AND referee_num = ?", [req.params.match_id,req.params.user_id,req.params.referee_num],(err, result,fields) => {
+      if(err) {res.json("ERROR")}
+      else {res.json(result)}
+    })
+  } 
+})
+
+app.get("/api/ratingreferee/match_id=:match_id", (req,res) => {
+
+  if(req.params.match_id !== undefined) {
+    db.query("SELECT * FROM rate_referee WHERE match_id = ?", [req.params.match_id],(err, result,fields) => {
+      if(err) {res.json("ERROR")}
+      else {res.json(result)}
+    })
+  } 
+})
+
+app.put("/api/updateratereferee", (req,res) => {
+  const match_id = req.body.match_id;
+  const user_id = req.body.user_id;
+  const referee_num = req.body.referee_num;
+  const value = req.body.value;
+
+  if(req.body.user_id !== undefined) {
+    const sqlUpdate = "UPDATE rate_referee SET value = ? WHERE match_id = ? AND user_id = ? AND referee_num = ?";
+    db.query(sqlUpdate,[value,match_id,user_id,referee_num] , (err, result) => {
+     if (err) {
+       console.log(err);
+       } else {
+       res.send(result);
+       }
+  })
+  }
+})
+
 
 app.listen(3001, () => {
   console.log("bruh");

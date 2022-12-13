@@ -11,6 +11,7 @@ import Game from './Pages/Game';
 import Archive from './Pages/Archive';
 import AdministrativeAct from './AdminPages/AdministrativeAct';
 import CreateMatch from './AdminPages/CreateMatch';
+import AssignReferee from './AdminPages/AssignReferee';
 
 function App() {
   // const adminUser = {
@@ -54,6 +55,8 @@ function App() {
         <Route path='/referees' element={<Home />}/>
         <Route path='/admin-act' element={<AdministrativeAct />}/>
         <Route path='/match' element={<CreateMatch />}/>
+        <Route path='/assignreferee' element={<AssignReferee />}/>
+
       </Routes>
       </div>   
     </>

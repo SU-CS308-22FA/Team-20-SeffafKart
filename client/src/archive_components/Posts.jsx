@@ -19,6 +19,7 @@ export default function Posts(){
             setData(res.data)
         }).catch(err => console.log(err))
         console.log("ne zaman")
+        console.log(data)
     }, [])
 
     
@@ -49,7 +50,7 @@ export default function Posts(){
                 <Link className="text" style={{textDecoration:'none'}} to="/admin-act" state={data.match_id}>Add Administrative Act</Link>
                 </button>
                 <button className="admin-button">
-                <Link className="text" style={{textDecoration:'none'}} to="/admin-act">Assign Referee</Link>
+                <Link className="text" style={{textDecoration:'none'}} to="/assignreferee" state={data.match_id}>Assign Referee</Link>
                 </button>
             </div>
             ) :
