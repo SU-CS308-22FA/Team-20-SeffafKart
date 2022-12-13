@@ -20,6 +20,10 @@ function FormAssignReferee(props) {
     const [second_assistant_referee, set2ndAssistant] = useState("");
     // const [acttime, setActTime] = useState("");
 
+    /**
+     * Handle the submit event of updating referee fields of an football match to the database via form
+     * @param  {Event} e The event instance of the current state
+     */
     const handleSubmit = async (e) => {
         e.preventDefault();
         Axios.put("http://localhost:3001/api/assignofficials", {

@@ -19,6 +19,10 @@ function FormAdminAct(props) {
     const [actdate, setActDate] = useState("");
     const [acttime, setActTime] = useState("");
 
+    /**
+     * Handle the submit event of inserting an administrative act to the database via form
+     * @param  {Event} e The event instance of the current state
+     */
     const handleSubmit = async (e) => {
         e.preventDefault();
         Axios.post("http://localhost:3001/api/createact", {
