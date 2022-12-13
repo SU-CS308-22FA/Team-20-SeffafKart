@@ -7,9 +7,8 @@ const mysql = require("mysql2");
 const db = mysql.createPool({
   host: "containers-us-west-71.railway.app",
   user: "root",
-  password: "Ly5AlA40N7LKanhMhclm",
-  database: "railway",
-  port: "5462",
+  password: "4125",
+  database: "cruddatabase",
 });
 
 app.use(cors());
@@ -34,20 +33,6 @@ app.post("/api/login", (req, res) => {
     console.log(err, result);
   });
 });
-
-// app.put("/api/update", (req, res) => {
-//   const id = req.body.id;
-//   const name = req.body.userName;
-//   const pass = req.body.password;
-//   const email = req.body.email;
-//   const info = req.body.userInfo;
-
-//   const sqlUpdate = "UPDATE users SET userName = ?, password = ?, email = ?, userInfo = ? WHERE id = ?";
-
-//     db.query(sqlUpdate,[name, pass, email, info, id] , (err, result) => {
-//       if (err) console.log(err);
-//     })
-// });
 
 app.delete("/api/delete/:userName", (req, res) => {
   const name = req.params.userName;
@@ -140,14 +125,14 @@ app.post("/api/insert", (req, res) => {
 
 app.post("/api/createact", (req, res) => {
   const act_info = req.body.act_info;
-  const act_game = req.body.act_game;
+  const match_id = req.body.match_id;
   const act_date = req.body.act_date;
   const act_time = req.body.act_time;
   const author_id = req.body.author_id;
 
   const sqlInsert =
-    "INSERT INTO admin_act (author_id,act_info,act_date,act_time,act_game) VALUES (?,?,?,?,?)";
-    db.query(sqlInsert, [author_id, act_info, act_date, act_time, act_game], (err, result) => {
+    "INSERT INTO admin_act (author_id,act_info,act_date,act_time,match_id) VALUES (?,?,?,?,?)";
+    db.query(sqlInsert, [author_id, act_info, act_date, act_time, match_id], (err, result) => {
     console.log(err);
     console.log(result);
     res.send(result);
@@ -160,6 +145,44 @@ app.get('/api/admin_acts', (req,res,next) => {
     if(err) {res.send("ERROR")}
     else {res.send(result)}
   })
+});
+
+app.get('/api/football_match', (req,res,next) => {
+  //res.json({message: "ok"});
+  db.query("SELECT * FROM football_match ORDER BY match_id DESC", (err, result,fields) => {
+    if(err) {res.send("ERROR")}
+    else {res.send(result)}
+  })
+});
+
+app.get('/api/football_match/:match_id', (req,res,next) => {
+  //res.json({message: "ok"});
+  if(req.params.match_id !== undefined) {
+    db.query("SELECT * FROM football_match WHERE match_id = ?", [req.params.match_id],(err, result,fields) => {
+      if(err) {res.json("ERROR")}
+      else {res.json(result)}
+    })
+  } 
+});
+
+app.get('/api/admin_acts/match_id=:match_id', (req,res,next) => {
+  //res.json({message: "ok"});
+  if(req.params.match_id !== undefined) {
+    db.query("SELECT * FROM admin_act WHERE match_id = ?", [req.params.match_id],(err, result,fields) => {
+      if(err) {res.json("ERROR")}
+      else {res.json(result)}
+    })
+  } 
+});
+
+app.get('/api/admin_acts/:admin_act_id', (req,res,next) => {
+  //res.json({message: "ok"});
+  if(req.params.admin_act_id !== undefined) {
+    db.query("SELECT * FROM admin_act WHERE admin_act_id = ?", [req.params.admin_act_id],(err, result,fields) => {
+      if(err) {res.json("ERROR")}
+      else {res.json(result)}
+    })
+  } 
 });
 
 app.get('/api/users_mod/:id', (req,res,next) => {
@@ -184,17 +207,68 @@ app.post("/api/creatematch", (req, res) => {
     db.query(sqlInsert, [location , time, date, hometeam, awayteam], (err, result) => {
     console.log(err);
     console.log(result);
-    res.send(result);})
-  });
+    res.send(result);
+  })
+});
 
-app.get('/api/admin_acts/:admin_act_id', (req,res,next) => {
-  //res.json({message: "ok"});
-  if(req.params.admin_act_id !== undefined) {
-    db.query("SELECT * FROM admin_act WHERE admin_act_id = ?", [req.params.admin_act_id],(err, result,fields) => {
+
+app.post("/api/rateadminact", (req,res) => {
+  const user_id = req.body.user_id;
+  const rate_type = req.body.rate_type;
+  const act_id = req.body.act_id;
+
+  if(req.body.user_id !== undefined) {
+    const sqlUpdate = "INSERT INTO rate_act (user_id,rate_type,act_id) VALUES (?,?,?)";
+     db.query(sqlUpdate,[user_id,rate_type,act_id] , (err, result) => {
+      if (err) {
+        console.log(err);
+        } else {
+        res.send(result);
+        }
+   })
+  }
+})
+
+app.get("/api/ratingadminact/act_id=:act_id&user_id=:user_id", (req,res) => {
+  if(req.params.act_id !== undefined && req.params.user_id !== undefined) {
+    db.query("SELECT * FROM rate_act WHERE act_id = ? AND user_id = ?", [req.params.act_id,req.params.user_id],(err, result,fields) => {
       if(err) {res.json("ERROR")}
-      else {res.json(result)}
+      else {res.json(result)
+      console.log(result)}
     })
   } 
+})
+
+app.put("/api/updaterateadminact", (req,res) => {
+  const user_id = req.body.user_id;
+  const rate_type = req.body.rate_type;
+  const act_id = req.body.act_id;
+
+  if(req.body.user_id !== undefined) {
+    const sqlUpdate = "UPDATE rate_act SET rate_type = ? WHERE user_id = ? AND act_id = ?";
+     db.query(sqlUpdate,[rate_type,user_id,act_id] , (err, result) => {
+      if (err) {
+        console.log(err);
+        } else {
+        res.send(result);
+        }
+   })
+  }
+})
+
+app.delete("/api/deleterate/:id", (req, res) => {
+  const id = req.params.id;
+
+  const sqlDelete = "DELETE FROM rate_act WHERE id = ?";
+
+    db.query(sqlDelete, id, (err, result) => {
+      if (err) {
+        console.log(err);
+      }
+      else {
+        res.send(result);
+      }
+   })
 });
 
 app.put("/api/decreaseposrate", (req, res) => {
@@ -263,6 +337,83 @@ app.put("/api/updatenegrate", (req, res) => {
   }
 });
 
+
+app.put("/api/assignofficials", (req, res) => {
+  const match_id = req.body.match_id;
+  const main_referee = req.body.main_referee;
+  const first_assistant_referee = req.body.first_assistant_referee;
+  const second_assistant_referee = req.body.second_assistant_referee;
+
+   const sqlUpdate = "UPDATE football_match SET main_referee = ?, first_assistant_referee = ?, second_assistant_referee = ? WHERE match_id = ?";
+ 
+     db.query(sqlUpdate,[main_referee,first_assistant_referee, second_assistant_referee, match_id] , (err, result) => {
+      if (err) {
+        console.log(err);
+        } else {
+        res.send(result);
+        }
+   })
+});
+
+app.post("/api/ratereferee", (req, res) => {
+  const match_id = req.body.match_id;
+  const user_id = req.body.user_id;
+  const value = req.body.value;
+  const referee_num = req.body.referee_num;
+
+  if(req.body.user_id !== undefined) {
+    const sqlUpdate = "INSERT INTO rate_referee (match_id,user_id,value,referee_num) VALUES (?,?,?,?)";
+    db.query(sqlUpdate,[match_id,user_id, value, referee_num] , (err, result) => {
+     if (err) {
+       console.log(err);
+       } else {
+       res.send(result);
+       }
+  })
+  }
+});
+
+app.get("/api/ratingreferee/match_id=:match_id&user_id=:user_id&referee_num=:referee_num", (req,res) => {
+
+  if(req.params.match_id !== undefined && req.params.user_id !== undefined && req.params.referee_num !== undefined) {
+    db.query("SELECT * FROM rate_referee WHERE match_id = ? AND user_id = ? AND referee_num = ?", [req.params.match_id,req.params.user_id,req.params.referee_num],(err, result,fields) => {
+      if(err) {res.json("ERROR")}
+      else {res.json(result)}
+    })
+  } 
+})
+
+app.get("/api/ratingreferee/match_id=:match_id", (req,res) => {
+
+  if(req.params.match_id !== undefined) {
+    db.query("SELECT * FROM rate_referee WHERE match_id = ?", [req.params.match_id],(err, result,fields) => {
+      if(err) {res.json("ERROR")}
+      else {res.json(result)}
+    })
+  } 
+})
+
+app.put("/api/updateratereferee", (req,res) => {
+  const match_id = req.body.match_id;
+  const user_id = req.body.user_id;
+  const referee_num = req.body.referee_num;
+  const value = req.body.value;
+
+  if(req.body.user_id !== undefined) {
+    const sqlUpdate = "UPDATE rate_referee SET value = ? WHERE match_id = ? AND user_id = ? AND referee_num = ?";
+    db.query(sqlUpdate,[value,match_id,user_id,referee_num] , (err, result) => {
+     if (err) {
+       console.log(err);
+       } else {
+       res.send(result);
+       }
+  })
+  }
+})
+
+
+
 app.listen(process.env.PORT || 3001, () => {
+
   console.log("bruh");
 });

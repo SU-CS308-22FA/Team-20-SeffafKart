@@ -6,9 +6,8 @@ export default function Header() {
         <div className="header">
             <div className="headerTitles">
                 {/* <span className="headerTitleSm">React & Node</span> */}
-                <span className="headerTitleLg">Archive</span> 
+                <span className="headerTitleLg">Football Games</span> 
             </div>
-            <img className="headerImage" src="" alt="" />
         </div>
     )
 

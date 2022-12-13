@@ -84,7 +84,7 @@ function FormCreateMatch() {
         {/* {errors.username && <p>{errors.username}</p>} */}
         </div>
         <div className="form-datetime">
-        <label className="form-label-act">Enter the date and time of the act</label>
+        <label className="form-label-act">Enter the date and time of the match</label>
         <input
             className="form-date"
             type="text"

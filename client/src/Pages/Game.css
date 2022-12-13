@@ -1,0 +1,157 @@
+.outside-container {
+    height: 300px;
+    margin: 5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.match-container {
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+}
+
+.match-date {
+    font-size: 15px;
+    color: dimgray;
+    padding: 10px;
+}
+
+.match-info {
+    font-size: 35px;
+    padding-left: 7rem;
+}
+
+.match-bottom {
+    display: flex;
+    flex-direction: column;
+    padding-top: 3rem;
+    align-items: baseline;
+    padding-left: 10px;
+}
+.match-time {
+    font-size: 15px;
+    color: dimgray;
+}
+
+.match-location {
+    font-size: 15px;
+    padding-top: 5px;
+    color: dimgray;
+    padding-bottom: 10px;
+}
+
+.bottom-container {
+    display: flex;
+    flex: 3;
+    height: 200px;
+    margin-top: 5rem;
+}
+
+.act-container {
+    flex: 2;
+    height: 200px;
+    margin-right: 6rem;
+}
+
+.referee-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    height: 270px;
+    background-color: rgb(168, 196, 195);
+    border-radius: 5px;
+    border-style: hidden;
+}
+
+.act-box-game {
+    display: flex;
+    border-radius: 5px;
+    border-style: hidden;
+    flex-direction: column;
+    align-items: baseline;
+    background-color: rgb(240, 233, 224);
+}
+
+.act-box-time {
+    padding: 10px;
+    margin-left: 5px;
+    font-size: 15px;
+    color: dimgray;
+}
+
+.act-box-info {
+    padding: 10px;
+    font-size: 25px;
+    padding-left: 3rem; 
+    color: rgb(74, 74, 74);
+}
+
+.act-box-bottom {
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.act-box-comments {
+    width: 90px;
+    margin-left: 1rem;
+    height: 30px;
+    border-radius: 4px;
+    background: cadetblue;
+    outline: none;
+    border: none;
+    font-size: 1rem;
+    color: white;
+}
+
+.act-box-comments:hover {
+    cursor: pointer;
+    background: linear-gradient(
+      90deg,
+      rgb(89, 122, 156) 0%,
+      rgb(116, 160, 236) 100%
+    );
+    transition: all 0.4s ease-out;
+  }
+
+
+.act-box-rate {
+    margin-right: 10px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    margin-bottom: 8px;
+}
+
+.referee-text {
+    display: flex;
+    margin-top: 1rem;
+    margin-bottom: 5px;
+    flex-direction: column;
+    align-items: center;
+    font-size: 120%;
+    font-family: 'PT Sans', sans-serif;
+    color: rgb(65, 34, 14)
+}
+.referee-title {
+    display: flex;
+    margin-top: 1rem;
+    flex-direction: column;
+    align-items: center;
+    font-weight: bold;
+    font-size: 140%;
+    font-family: 'PT Sans', sans-serif;
+    color: rgb(65, 34, 14)
+}
+
+.referee-rating {
+    display: flex;
+    flex-direction: row;
+}
+
+.referee-rate {
+    margin-left: 5px;
+}

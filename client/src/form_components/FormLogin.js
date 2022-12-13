@@ -18,20 +18,7 @@ function FormLogin() {
   const [errMsg,setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
 
-  const [loginStatus, setLoginStatus] = useState("");
-
-  // const userRef = useRef();
-  // const errRef = useRef();
-
-  // useEffect(() => {
-  //   userRef.current.focus();
-  // }, [])
-
-  // useEffect(() => {
-  //   setErrMsg('');
-  // }, [email, password])
-
-    
+  const [loginStatus, setLoginStatus] = useState("");    
 
   const LoginCheck = async (e) => {
     e.preventDefault();

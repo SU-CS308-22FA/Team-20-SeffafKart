@@ -36,13 +36,8 @@ function Navbar () {
                     </Link>
                 </li>
                 <li>
-                    <Link className="nav-links" to="/archive">
-                        Archive
-                    </Link>
-                </li>
-                <li>
-                    <Link className="nav-links" to="/games">
-                        Matches
+                    <Link className="nav-links" to="/referees">
+                        Referees
                     </Link>
                 </li>
                 <li>
