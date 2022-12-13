@@ -107,6 +107,6 @@ In the next step, set up a new account in [Netlify](https://www.netlify.com) or 
     CI= npm run build
 Then click "Deploy Site" button and the Netlify will start deploying the website. Although there is one last step we need to do before using successfully deploying our application. Switch to VScode terminal which is in the client directory of your local source code and enter the following code:
 
-    npm run build
+    npm start
   And the Netlify will finalize the deployment process. You have successfully deployed your web application.
 
