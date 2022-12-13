@@ -25,7 +25,7 @@ function FormAdminAct(props) {
      */
     const handleSubmit = async (e) => {
         e.preventDefault();
-        Axios.post("http://localhost:3001/api/createact", {
+        Axios.post("https://seffafkart-client.onrender.com/api/createact", {
           author_id: user_id,
           act_info: actinfo,
           act_date: actdate,

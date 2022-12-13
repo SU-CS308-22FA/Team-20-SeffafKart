@@ -12,7 +12,6 @@ export default function Posts(){
     //const isAdmin = true;
     const [data, setData] = useState([])
 
-
     useEffect(() => {
         Axios.get('http://localhost:3001/api/football_match')
         .then(res => {

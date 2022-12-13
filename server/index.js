@@ -5,7 +5,7 @@ const app = express();
 const mysql = require("mysql2");
 
 const db = mysql.createPool({
-  host: "localhost",
+  host: "containers-us-west-71.railway.app",
   user: "root",
   password: "4125",
   database: "cruddatabase",
@@ -211,6 +211,7 @@ app.post("/api/creatematch", (req, res) => {
   })
 });
 
+
 app.post("/api/rateadminact", (req,res) => {
   const user_id = req.body.user_id;
   const rate_type = req.body.rate_type;
@@ -336,6 +337,7 @@ app.put("/api/updatenegrate", (req, res) => {
   }
 });
 
+
 app.put("/api/assignofficials", (req, res) => {
   const match_id = req.body.match_id;
   const main_referee = req.body.main_referee;
@@ -410,6 +412,8 @@ app.put("/api/updateratereferee", (req,res) => {
 })
 
 
-app.listen(3001, () => {
+
+app.listen(process.env.PORT || 3001, () => {
+
   console.log("bruh");
 });
