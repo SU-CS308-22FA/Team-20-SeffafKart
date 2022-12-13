@@ -2,11 +2,17 @@ import React, {useState} from "react";
 import './FormAdmin.css'
 import Axios from "axios";
 import { useSelector } from "react-redux";
+import {useLocation} from "react-router-dom";
 
-function FormAdminAct() {
+function FormAdminAct(props) {
+    const location = useLocation();
+    console.log(props, "props");
+    console.log(location, "location")
     const user = useSelector((state) => state.user.currentUser);
     const user_id = user[0].id
 
+    const match_id = location.state;
+    console.log(match_id)
 
     const [actgame, setActGame] = useState("");
     const [actinfo, setActInfo] = useState("");
@@ -20,14 +26,14 @@ function FormAdminAct() {
           act_info: actinfo,
           act_date: actdate,
           act_time: acttime,
-          act_game: actgame
+          match_id: match_id
         }).then((err) => {
           alert("Act is successfully created");
           //console.log(err);
           if(err === null) {
             console.log("act created")
           }
-         });   
+         });  
       };
 
   return (
@@ -35,17 +41,6 @@ function FormAdminAct() {
         <h1 className="title-act">Create an Administrative Act</h1>
       <form className="form-act" noValidate>
         <div className="form-inputs-act">
-        <label className="form-label-act">Enter the match the act belongs to</label>
-        <input
-            className="form-input-act"
-            type="text"
-            name="actgame"
-            value={actgame}
-            placeholder="Give the match information"
-            onChange={(e) => {
-                setActGame(e.target.value);
-            }}
-        />
         {/* {errors.username && <p>{errors.username}</p>} */}
         </div>
         <div className="form-inputs-act">
@@ -64,17 +59,7 @@ function FormAdminAct() {
         {/* {errors.username && <p>{errors.username}</p>} */}
         </div>
         <div className="form-datetime">
-        <label className="form-label-act">Enter the date and time of the act</label>
-        <input
-            className="form-date"
-            type="text"
-            name="actdate"
-            value={actdate}
-            placeholder="**/**/****"
-            onChange={(e) => {
-            setActDate(e.target.value);
-            }}
-        />
+        <label className="form-label-act">Enter the time of the act</label>
         <input
             className="form-time"
             type="text"
