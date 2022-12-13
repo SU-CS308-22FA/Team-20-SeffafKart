@@ -19,6 +19,7 @@ export default function Posts(){
             setData(res.data)
         }).catch(err => console.log(err))
         console.log("ne zaman")
+        console.log(data)
     }, [])
 
     

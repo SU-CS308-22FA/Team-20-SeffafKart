@@ -48,7 +48,7 @@ function FormAssignReferee(props) {
     //   };
 
   return (
-    <div className="form-content-act">
+    <div className="form-content-referee">
         <h1 className="title-act">Assign Match Officials</h1>
       <form className="form-act" noValidate>
         <div className="form-inputs-act">

@@ -3,6 +3,7 @@ import './Game.css'
 import Axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import {Link, useLocation} from 'react-router-dom';
+import StarRating from '../components/StarRating';
 
 
 function Game(props) {
@@ -21,72 +22,44 @@ function Game(props) {
   const [ctr, setCtr] = useState(0);
   const [voted, setVoted] = useState({});
 
+  const [r1,setR1] = useState(0);
+  const [r2,setR2] = useState(0);
+  const [r3,setR3] = useState(0);
 
-  const handlePos = async (id,rate) => {
-    if(voted[id] === "neg") {
-        setPosClick(true)
-        posRate = rate + 1;
-        handleDecNeg(id);
-    } else if (voted[id] === "pos" && posclick){
-        posRate = rate - 1;
-        setPosClick(false)
-    } else {
-        setPosClick(true)
-        posRate = rate + 1;
-    }
-    setPosRate(posRate)
-    Axios.put("http://localhost:3001/api/updateposrate", {
-      act_rate_pos: posRate,
-      admin_act_id: id,
-      user_id: user[0].id,
-    }).then((response) => {
-        setCtr(ctr+1);
-        alert("update");
-        voted[id] = "pos";
-        setVoted(voted);
+  const [refereeCTR, setRefereeCTR] = useState(0)
+
+  const handleRate = async (id,rate) => {
+    Axios.get(`http://localhost:3001/api/ratingadminact/act_id=${id}&user_id=${user[0].id}`)
+    .then((response) => {
+        console.log(response.data,"data")
+        if(response.data.length !== 0) {
+          if(response.data[0].rate_type === rate) {
+            console.log("del time")
+            Axios.delete(`http://localhost:3001/api/deleterate/${response.data[0].id}`)
+            .then((response) => {
+                alert("deleted");
+            });
+          } else {
+            Axios.put("http://localhost:3001/api/updaterateadminact", {
+              user_id:user[0].id,
+              rate_type: rate,
+              act_id: id
+            }).then((response) => {
+                alert("successfully voted act");
+            });
+          }
+        } 
+        else {
+          alert("not rated before");
+          Axios.post("http://localhost:3001/api/rateadminact", {
+            user_id:user[0].id,
+            rate_type: rate,
+            act_id: id
+          }).then((response) => {
+              alert("successfully voted act");
+          });
+        }
     });
-  }
-
-const handleNeg = async (id,rate) => {
-    if(voted[id] === "pos") {
-        negRate = rate + 1;
-        setNegClick(true)
-        handleDecPos(id);
-    } else if (voted[id] === "neg" && negclick){
-        negRate = rate - 1;
-        setNegClick(false)
-    } else {
-        setNegClick(true)
-        negRate = rate + 1;
-    }
-    setNegRate(negRate)
-    
-    Axios.put("http://localhost:3001/api/updatenegrate", {
-      act_rate_neg: negRate,
-      admin_act_id: id,
-      user_id: user[0].id,
-    }).then((response) => {
-        setCtr(ctr+1);
-        alert("update");
-        voted[id] = "neg";
-        setVoted(voted);
-    });
-  }
-
-  const handleDecPos = (id) => {
-    voted[id] = "";
-    Axios.put("http://localhost:3001/api/decreaseposrate", {
-      admin_act_id: id,
-      user_id: user[0].id,
-    })
-  }
-
-  const handleDecNeg = (id) => {
-    voted[id] = "";
-    Axios.put("http://localhost:3001/api/decreasenegrate", {
-      admin_act_id: id,
-      user_id: user[0].id,
-    })
   }
 
   useEffect(() => {
@@ -94,18 +67,144 @@ const handleNeg = async (id,rate) => {
     .then(res => {
         setMatchData(res.data[0])
     }).catch(err => console.log(err))
+
     Axios.get(`http://localhost:3001/api/admin_acts/match_id=${match_id}`)
     .then(res => {
         setAdminActs(res.data)
     }).catch(err => console.log(err))
+
     console.log("ne zaman")
-}, [ctr])
+}, [])
+
+  useEffect(() => {
+    Axios.get(`http://localhost:3001/api/ratingreferee/match_id=${match_id}`)
+    .then((response) => {
+      console.log(response.data)
+      response.data.forEach(element => {
+        if(element.referee_num === 1) {
+          console.log(element.value)
+          setR1(r1 + element.value)
+        }
+        else if (element.referee_num === 2) {
+          console.log(element.value)
+          setR2(r2 + element.value)
+        }
+        else if (element.referee_num === 3) {
+          console.log(element.value)
+          setR3(r3 + element.value)
+        }
+      });
+    });
+    console.log(r1,r2,r3,"rates")
+  }, [refereeCTR])
+
+  const getRateRefereeOne = (data) => {
+    Axios.get(`http://localhost:3001/api/ratingreferee/match_id=${match_id}&user_id=${user[0].id}&referee_num=${1}`)
+    .then((response) => {
+        console.log(response.data,"data respoms")
+        console.log(response)
+        if(response.data.length !== 0) {
+          alert("rated before")
+          Axios.put("http://localhost:3001/api/updateratereferee", {
+            match_id: match_id,
+            user_id:user[0].id,
+            value: data,
+            referee_num: 1
+          }).then((response) => {
+              alert("successfully changed vote");
+          });
+        } 
+        else {
+          alert("not rated before");
+          Axios.post("http://localhost:3001/api/ratereferee", {
+            match_id: match_id,
+            user_id:user[0].id,
+            value: data,
+            referee_num: 1
+          }).then((response) => {
+              alert("successfully voted referee");
+          });
+        }
+    });
+    setRefereeCTR(refereeCTR + 1)
+  }
+
+  const getRateRefereeTwo = (data) => {
+    Axios.get(`http://localhost:3001/api/ratingreferee/match_id=${match_id}&user_id=${user[0].id}&referee_num=${2}`)
+    .then((response) => {
+        console.log(response.data,"data respoms")
+        console.log(response)
+        if(response.data.length !== 0) {
+          alert("rated before")
+          Axios.put("http://localhost:3001/api/updateratereferee", {
+            match_id: match_id,
+            user_id:user[0].id,
+            value: data,
+            referee_num: 2
+          }).then((response) => {
+              alert("successfully changed vote");
+          });
+        } 
+        else {
+          alert("not rated before");
+          Axios.post("http://localhost:3001/api/ratereferee", {
+            match_id: match_id,
+            user_id:user[0].id,
+            value: data,
+            referee_num: 2
+          }).then((response) => {
+              alert("successfully voted referee");
+          });
+        }
+    });
+    setRefereeCTR(refereeCTR + 1)
+  }
+
+  const getRateRefereeThree = (data) => {
+    Axios.get(`http://localhost:3001/api/ratingreferee/match_id=${match_id}&user_id=${user[0].id}&referee_num=${3}`)
+    .then((response) => {
+        console.log(response.data,"data respoms")
+        console.log(response)
+        if(response.data.length !== 0) {
+          alert("rated before")
+          Axios.put("http://localhost:3001/api/updateratereferee", {
+            match_id: match_id,
+            user_id:user[0].id,
+            value: data,
+            referee_num: 3
+          }).then((response) => {
+              alert("successfully changed vote");
+          });
+        } 
+        else {
+          alert("not rated before");
+          Axios.post("http://localhost:3001/api/ratereferee", {
+            match_id: match_id,
+            user_id:user[0].id,
+            value: data,
+            referee_num: 3
+          }).then((response) => {
+              alert("successfully voted referee");
+          });
+        }
+    });
+    setRefereeCTR(refereeCTR + 1)
+  }
 
   if(match_data.main_referee != null){
     text = <div className='referee-container'>
               <text className='referee-text'>Main Official: {match_data.main_referee}</text>
+              <div className='referee-rating'>
+              <StarRating setRate={getRateRefereeOne}/>
+              </div>
               <text className='referee-text'>1st Assistant Official: {match_data.first_assistant_referee}</text>
+              <div className='referee-rating'>
+              <StarRating setRate={getRateRefereeTwo}/>
+              </div>
               <text className='referee-text'>2nd Assistant Official: {match_data.second_assistant_referee}</text>
+              <div className='referee-rating'>
+              <StarRating setRate={getRateRefereeThree}/>
+              </div>
           </div>
   }
   else{
@@ -127,14 +226,13 @@ const adminActs = admin_acts.map((act, index) => {
       </button>
       <div className='act-box-rate'>
       <label>{act.act_rate_pos}</label>
-      <i className="postIconLike fas fa-thumbs-up" onClick={() => handlePos(act.admin_act_id,act.act_rate_pos)}></i>
-      <i className="postIconDislike fas fa-thumbs-down" onClick={() => handleNeg(act.admin_act_id,act.act_rate_neg)}></i>
+      <i className="postIconLike fas fa-thumbs-up" onClick={() => handleRate(act.admin_act_id,"pos")}></i>
+      <i className="postIconDislike fas fa-thumbs-down" onClick={() => handleRate(act.admin_act_id,"neg")}></i>
       <label>  {act.act_rate_neg}</label>
       </div>
     </div>
   </div>
   )});
-
 
 
   return (
@@ -159,7 +257,7 @@ const adminActs = admin_acts.map((act, index) => {
           <div className='referee-container'>
             <text className='referee-title'>Referees</text>
             {text}
-          </div > 
+          </div >
         </div>
     </div>
     </>

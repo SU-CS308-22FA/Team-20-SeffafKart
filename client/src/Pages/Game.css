@@ -129,6 +129,7 @@
 .referee-text {
     display: flex;
     margin-top: 1rem;
+    margin-bottom: 5px;
     flex-direction: column;
     align-items: center;
     font-size: 120%;
@@ -144,4 +145,13 @@
     font-size: 140%;
     font-family: 'PT Sans', sans-serif;
     color: rgb(65, 34, 14)
+}
+
+.referee-rating {
+    display: flex;
+    flex-direction: row;
+}
+
+.referee-rate {
+    margin-left: 5px;
 }
