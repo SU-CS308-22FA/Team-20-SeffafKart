@@ -72,6 +72,7 @@
     flex-direction: column;
     align-items: baseline;
     background-color: rgb(240, 233, 224);
+    margin-bottom: 0.5rem;
 }
 
 .act-box-time {
@@ -154,4 +155,52 @@
 
 .referee-rate {
     margin-left: 5px;
+}
+
+.comment-container {
+    margin-top: 5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+}
+
+.comment-container-text{
+    font-size: 35px;
+    color:rgb(74, 74, 74);
+}
+
+.comment-box-game{
+    display: flex;
+    border-radius: 5px;
+    width: 70%;
+    height: auto;
+    border-style: hidden;
+    flex-direction: column;
+    background-color: rgb(231, 229, 227);
+    margin-bottom: 0.5rem;
+}
+
+.comment-box-game-top{
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.comment-box-game-content{
+    padding: 15px;
+    margin-bottom: 0.5rem;
+    text-align: left;
+    font-size: 1.7rem;
+    word-wrap: break-word;
+}
+
+.comment-box-game-user{
+    font-size: 1.7rem;
+    color: blueviolet;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.comment-box-game-time{
+    font-size: 1.5rem;
+    color:rgb(74, 74, 74);
 }

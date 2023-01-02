@@ -409,6 +409,16 @@ app.put("/api/updateratereferee", (req,res) => {
   }
 })
 
+app.get('/api/comment_match/match_id=:match_id', (req,res,next) => {
+  //res.json({message: "ok"});
+  if(req.params.match_id !== undefined) {
+    db.query("SELECT * FROM comment_match WHERE match_id = ?", [req.params.match_id],(err, result,fields) => {
+      if(err) {res.json("ERROR")}
+      else {res.json(result)}
+    })
+  } 
+});
+
 
 app.listen(3001, () => {
   console.log("bruh");

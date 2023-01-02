@@ -10,17 +10,11 @@ function Game(props) {
   const location = useLocation();
   const [match_data, setMatchData] = useState("");
   const [admin_acts, setAdminActs] = useState([]);
+  const [match_comments, setMatchComments] = useState([]);
   const match_id = location.state;
   const user = useSelector((state) => state.user.currentUser);
   let text = ""
-  let posRate = 0
-  let negRate = 0
-  const [pR, setPosRate] = useState();
-  const [nR, setNegRate] = useState();
-  const [posclick, setPosClick] = useState(false);
-  const [negclick, setNegClick] = useState(false);
-  const [ctr, setCtr] = useState(0);
-  const [voted, setVoted] = useState({});
+  const [commentM, setCommentM] = useState(false);
 
   const [r1,setR1] = useState(0);
   const [r2,setR2] = useState(0);
@@ -71,6 +65,11 @@ function Game(props) {
     Axios.get(`http://localhost:3001/api/admin_acts/match_id=${match_id}`)
     .then(res => {
         setAdminActs(res.data)
+    }).catch(err => console.log(err))
+
+    Axios.get(`http://localhost:3001/api/comment_match/match_id=${match_id}`)
+    .then(res => {
+        setMatchComments(res.data)
     }).catch(err => console.log(err))
 
     console.log("ne zaman")
@@ -234,6 +233,20 @@ const adminActs = admin_acts.map((act, index) => {
   </div>
   )});
 
+const comments = match_comments.map((comm,index) => {
+  return (
+      <div className='comment-box-game'>
+        <div className='comment-box-game-top'>
+          <label className='comment-box-game-user'> {comm.username}:</label>
+          <label className='comment-box-game-time'>{comm.date}</label>
+        </div>
+        <div className='comment-box-game-content'>{comm.content}</div>
+      </div>
+  )});
+
+  const makeComment = <div className='make-comment'>
+
+  </div>
 
   return (
     <>
@@ -258,6 +271,12 @@ const adminActs = admin_acts.map((act, index) => {
             <text className='referee-title'>Referees</text>
             {text}
           </div >
+        </div>
+        
+        <div className='comment-container'> 
+            <label className='comment-container-text'>Comments on game..</label>
+            {makeComment}
+            {comments}
         </div>
     </div>
     </>
