@@ -126,13 +126,12 @@ app.post("/api/insert", (req, res) => {
 app.post("/api/createact", (req, res) => {
   const act_info = req.body.act_info;
   const match_id = req.body.match_id;
-  const act_date = req.body.act_date;
   const act_time = req.body.act_time;
   const author_id = req.body.author_id;
 
   const sqlInsert =
-    "INSERT INTO admin_act (author_id,act_info,act_date,act_time,match_id) VALUES (?,?,?,?,?)";
-    db.query(sqlInsert, [author_id, act_info, act_date, act_time, match_id], (err, result) => {
+    "INSERT INTO admin_act (author_id,act_info,act_time,match_id) VALUES (?,?,?,?)";
+    db.query(sqlInsert, [author_id, act_info, act_time, match_id], (err, result) => {
     console.log(err);
     console.log(result);
     res.send(result);
@@ -436,6 +435,28 @@ app.post("/api/makecomment", (req, res) => {
   });
 });
 
+app.post("/api/createnews", (req, res) => {
+  const date = req.body.date;
+  const content = req.body.content;
+  const author_id = req.body.author_id;
+  const title = req.body.title;
+
+  const sqlInsert =
+    "INSERT INTO daily_news (author_id,content,date, title) VALUES (?,?,?,?)";
+    db.query(sqlInsert, [author_id, content, date,title], (err, result) => {
+    console.log(err);
+    console.log(result);
+    res.send(result);
+  });
+});
+
+app.get('/api/daily_news', (req,res,next) => {
+  //res.json({message: "ok"});
+    db.query("SELECT * FROM daily_news ORDER BY news_id DESC",(err, result,fields) => {
+      if(err) {res.json("ERROR")}
+      else {res.json(result)}
+    })
+});
 
 
 app.listen(process.env.PORT || 3001, () => {

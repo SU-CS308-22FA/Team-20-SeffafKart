@@ -1,3 +1,9 @@
+.form-error{
+    color: brown;
+    font-size: 15px;
+    font-weight: 400;
+    font-style: italic;
+}
 .act {
     width: 100%;
     height: 100%;
@@ -29,6 +35,7 @@
     width: 90%;
     height: 100%;
     display: flex;
+    align-items: baseline;
     flex-direction: column;
     padding: 6px;
     margin-top: 10rem;
@@ -123,4 +130,37 @@
 .form-input-act::placeholder {
     color: #595959;
     font-size: 12px;
-  }
+}
+
+.form-content-match {
+    margin-top: 3rem;
+    background-color: rgb(213, 207, 200);
+    width: 65%;
+    height: 650px;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.2);
+    position: relative;
+    border-radius: 10px;
+    display: grid;
+}
+
+.form-content-referee {
+    margin-top: 3rem;
+    background-color: rgb(213, 207, 200);
+    width: 65%;
+    height: 500px;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.2);
+    position: relative;
+    border-radius: 10px;
+    display: grid;
+}
+
+.form-content-news {
+    margin-top: 3rem;
+    background-color: rgb(213, 207, 200);
+    width: 65%;
+    height: 550px;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.2);
+    position: relative;
+    border-radius: 10px;
+    display: grid;
+}

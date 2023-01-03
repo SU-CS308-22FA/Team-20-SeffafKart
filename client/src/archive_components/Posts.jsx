@@ -10,19 +10,20 @@ import {Link} from 'react-router-dom';
 export default function Posts(){
     const isAdmin = useSelector((state) => state.user.admin);
     //const isAdmin = true;
-    const [data, setData] = useState([])
+    const [data, setData] = useState([]);
 
     useEffect(() => {
         Axios.get('http://localhost:3001/api/football_match')
         .then(res => {
             setData(res.data)
+            console.log(res.data)
         }).catch(err => console.log(err))
         console.log("ne zaman")
         console.log(data)
     }, [])
 
     
-    const adminActs = data.map((data,index) =>{
+    const games = data.map((data,index) =>{
         return(
             <div className="post">
             <div className="postInfo">
@@ -62,7 +63,7 @@ export default function Posts(){
 
     return (
         <div className="posts">
-            {adminActs}
+            {games}
         </div>
     )
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import '../admin_form_components/FormAssignReferee.css'
+import '../admin_form_components/Forms.css'
 import FormAssignReferee from '../admin_form_components/FormAssignReferee'
 
 function AssignReferee() {

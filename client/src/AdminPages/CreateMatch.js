@@ -1,5 +1,5 @@
 import React from 'react'
-import '../admin_form_components/FormAdmin.css'
+import '../admin_form_components/Forms.css'
 import FormCreateMatch from '../admin_form_components/FormCreateMatch'
 
 function CreateMatch() {

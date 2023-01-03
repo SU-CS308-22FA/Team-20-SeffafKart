@@ -6,12 +6,11 @@ import Login from './Pages/Login';
 import Home from './Pages/Home';
 import Profile from './Pages/Profile';
 import { Route, Routes} from 'react-router-dom';
-import {useState} from 'react';
 import Game from './Pages/Game';
-import Archive from './Pages/Archive';
 import AdministrativeAct from './AdminPages/AdministrativeAct';
 import CreateMatch from './AdminPages/CreateMatch';
 import AssignReferee from './AdminPages/AssignReferee';
+import DailyNews from './AdminPages/DailyNews';
 
 function App() {
   // const adminUser = {
@@ -56,7 +55,7 @@ function App() {
         <Route path='/admin-act' element={<AdministrativeAct />}/>
         <Route path='/match' element={<CreateMatch />}/>
         <Route path='/assignreferee' element={<AssignReferee />}/>
-
+        <Route path='/dailynews' element={<DailyNews />}/>
       </Routes>
       </div>   
     </>
