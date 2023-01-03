@@ -11,8 +11,6 @@ function FormProfile() {
     const user = useSelector((state) => state.user.currentUser);
     const dispatch = useDispatch();
     let userId = null;
-    console.log("user")
-    console.log(user);
 
     const [deleted, setDeleted] = useState(false);
     const [newUsername, SetNewUsername] = useState("");
