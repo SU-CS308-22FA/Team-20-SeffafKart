@@ -1,8 +1,8 @@
 .sidebar{
-    flex: 1;
+    flex: 3;
     margin: 20px;
     padding-bottom: 30px;
-    background-color: #555;
+    background-color: rgba(136, 127, 127, 0.5);
     border-radius: 10px;
     flex-direction: column;
 }
@@ -10,7 +10,7 @@
     display: flex;
     flex-direction: column;
     align-items:  center;
-    color: #fff;
+    color: rgb(44, 42, 42);
 }
 
 .sidebarTitle{
@@ -20,10 +20,52 @@
     font-family: 'PT Sans', sans-serif;
     border-top: 1px solid #a7a4a4;
     border-bottom: 1px solid #a7a4a4;
-    font-size: 20px;
-    font-weight: 600;
-    line-height: 20px;
+    font-size: 30px;
+    font-weight: 500;
+    line-height: 40px;
     text-align: center;
+}
+
+.news-container{
+    width: 85%;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: baseline;
+    flex-direction: column;
+    border-top: 2px solid #a7a4a4;
+    padding: 5px;
+}
+
+.news-container-top{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 0.6rem;
+}
+
+.news-title{
+    font-size: 22px;
+    font-weight: 600;
+    text-align: left;
+}
+
+.news-container-bottom{
+    width: 100%;
+    word-wrap: break-word;
+    display: flex;
+}
+
+.news-content {
+    text-align:left;
+    font-size: 18px;
+}
+
+.sidebarText{
+    font-size: 20px;
+    font-weight: 200;
+    word-wrap: break-word;
 }
 
 

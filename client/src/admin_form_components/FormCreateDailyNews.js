@@ -9,18 +9,20 @@ function FormCreateDailyNews() {
 
     const [newsinfo, setNewsInfo] = useState("");
     const [newsdate, setNewsDate] = useState("");
+    const [newstitle, setNewsTitle] = useState("");
     const [errors, setErrors] = useState("");
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (newsinfo === "" || newsdate ==="") {
+        if (newsinfo === "" || newsdate ==="" || newstitle ==="") {
             setErrors("All parts must be filled!!")
         }
         else {
         Axios.post("http://localhost:3001/api/createnews", {
           author_id: user_id,
           content: newsinfo,
-          date: newsdate
+          date: newsdate,
+          title: newstitle
         }).then((err) => {
           alert("Daily news is successfully created");
           //console.log(err);
@@ -32,10 +34,21 @@ function FormCreateDailyNews() {
       };
 
   return (
-    <div className="form-content-act">
+    <div className="form-content-news">
         <h1 className="title-act">Enter a daily news</h1>
       <form className="form-act" noValidate>
         <div className="form-inputs-act">
+          <label className="form-label-act"> Enter the title of the daily news</label>
+          <input
+            className="form-input-act"
+            type="text"
+            name="main_official"
+            value={newstitle}
+            placeholder="Enter the title"
+            onChange={(e) => {
+                setNewsTitle(e.target.value);
+            }}
+        />
         </div>
         <div className="form-inputs-act">
         <label className="form-label-act">Enter the content of the daily news</label>
