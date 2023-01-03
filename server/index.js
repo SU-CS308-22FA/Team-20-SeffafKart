@@ -5,9 +5,9 @@ const app = express();
 const mysql = require("mysql2");
 
 const db = mysql.createPool({
-  host: "containers-us-west-71.railway.app",
+  host: "localhost",
   user: "root",
-  password: "4125",
+  password: "password",
   database: "cruddatabase",
 });
 
