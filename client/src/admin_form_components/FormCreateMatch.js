@@ -1,39 +1,37 @@
 import React, {useState} from "react";
-import './FormAdmin.css'
 import Axios from "axios";
-// import { useSelector } from "react-redux";
-import "./FormMatch.css"
+import './Forms.css'
 
 function FormCreateMatch() {
-    // const user = useSelector((state) => state.user.currentUser);
-    // const user_id = user[0].id
+  const [location, setLocation] = useState("");
+  const [time, setTime] = useState("");
+  const [date, setDate] = useState("");
+  const [hometeam, setHomeTeam] = useState("");
+  const [awayteam, setAwayTeam] = useState("");
+  const [errors, setErrors] = useState("");
 
 
-    // const [matchid, setMatchId] = useState("");
-    const [location, setLocation] = useState("");
-    const [time, setTime] = useState("");
-    const [date, setDate] = useState("");
-    const [hometeam, setHomeTeam] = useState("");
-    const [awayteam, setAwayTeam] = useState("");
-
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        Axios.post("http://localhost:3001/api/creatematch", {
-        //   match_id: matchid,
-          location: location,
-          time: time,
-          home_team: hometeam,
-          away_team: awayteam,
-          date: date
-        }).then((err) => {
-          alert("Match is successfully created");
-          //console.log(err);
-          if(err === null) {
-            console.log("Match created")
-          }
-         });   
-      };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (location === "" || date ===""  || time ===""  || hometeam ===""  || awayteam ==="") {
+      setErrors("All parts must be filled!!")
+    }
+    else {
+      Axios.post("http://localhost:3001/api/creatematch", {
+        location: location,
+        time: time,
+        home_team: hometeam,
+        away_team: awayteam,
+        date: date
+      }).then((err) => {
+        alert("Match is successfully created");
+        //console.log(err);
+        if(err === null) {
+          console.log("Match created")
+        }
+        });
+    }
+  };
 
   return (
     <div className="form-content-match">
@@ -51,7 +49,6 @@ function FormCreateMatch() {
                 setLocation(e.target.value);
             }}
         />
-        {/* {errors.username && <p>{errors.username}</p>} */}
         </div>
         <div className="form-inputs-act">
         <label className="form-label-act">Enter the home team</label>
@@ -66,7 +63,6 @@ function FormCreateMatch() {
             setHomeTeam(e.target.value);
             }}
         />
-        {/* {errors.username && <p>{errors.username}</p>} */}
         </div>
         <div className="form-inputs-act">
         <label className="form-label-act">Enter the away team</label>
@@ -81,7 +77,6 @@ function FormCreateMatch() {
             setAwayTeam(e.target.value);
             }}
         />
-        {/* {errors.username && <p>{errors.username}</p>} */}
         </div>
         <div className="form-datetime">
         <label className="form-label-act">Enter the date and time of the act</label>
@@ -105,8 +100,8 @@ function FormCreateMatch() {
             setTime(e.target.value);
             }}
         />
-        {/* {errors.username && <p>{errors.username}</p>} */}
         </div>
+        <label className="form-error">{errors}</label>
         <button className="form-input-btn-act" onClick={handleSubmit}>
           Submit
         </button>

@@ -1,72 +1,66 @@
 import React, {useState} from "react";
-import './Forms.css'
 import Axios from "axios";
 import { useSelector } from "react-redux";
-import {useLocation} from "react-router-dom";
+import './Forms.css'
 
-function FormAdminAct(props) {
-    const location = useLocation();
-    console.log(props, "props");
-    console.log(location, "location")
+function FormCreateDailyNews() {
     const user = useSelector((state) => state.user.currentUser);
     const user_id = user[0].id
 
-    const match_id = location.state;
-    console.log(match_id)
-
-    const [actinfo, setActInfo] = useState("");
-    const [acttime, setActTime] = useState("");
+    const [newsinfo, setNewsInfo] = useState("");
+    const [newsdate, setNewsDate] = useState("");
     const [errors, setErrors] = useState("");
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (actinfo === "" || acttime ==="") {
+        if (newsinfo === "" || newsdate ==="") {
             setErrors("All parts must be filled!!")
         }
         else {
-          Axios.post("http://localhost:3001/api/createact", {
+        Axios.post("http://localhost:3001/api/createnews", {
           author_id: user_id,
-          act_info: actinfo,
-          act_time: acttime,
-          match_id: match_id
+          content: newsinfo,
+          date: newsdate
         }).then((err) => {
-          alert("Act is successfully created");
+          alert("Daily news is successfully created");
           //console.log(err);
           if(err === null) {
             console.log("act created")
           }
-         });
-        } 
+         });  
+        }
       };
 
   return (
     <div className="form-content-act">
-      <h1 className="title-act">Create an Administrative Act</h1>
+        <h1 className="title-act">Enter a daily news</h1>
       <form className="form-act" noValidate>
         <div className="form-inputs-act">
-        <label className="form-label-act">Enter the content of the administrative act</label>
+        </div>
+        <div className="form-inputs-act">
+        <label className="form-label-act">Enter the content of the daily news</label>
         <textarea
             id='' cols='30' rows='6'
             className="form-input-act-text"
             type="text"
             name="actinfo"
-            value={actinfo}
+            value={newsinfo}
             placeholder="Enter the information"
             onChange={(e) => {
-            setActInfo(e.target.value);
+            setNewsInfo(e.target.value);
             }}
         />
         </div>
         <div className="form-datetime">
-        <label className="form-label-act">Enter the time of the act</label>
+        <label className="form-label-act">Enter the date of the daily news</label>
         <input
             className="form-time"
             type="text"
             name="acttime"
-            value={acttime}
-            placeholder="00:00"
+            value={newsdate}
+            placeholder="**/**/****"
             onChange={(e) => {
-            setActTime(e.target.value);
+            setNewsDate(e.target.value);
             }}
         />
         </div>
@@ -79,4 +73,4 @@ function FormAdminAct(props) {
   )
 }
 
-export default FormAdminAct
+export default FormCreateDailyNews

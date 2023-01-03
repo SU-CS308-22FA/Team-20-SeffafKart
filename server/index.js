@@ -7,7 +7,7 @@ const mysql = require("mysql2");
 const db = mysql.createPool({
   host: "localhost",
   user: "root",
-  password: "password",
+  password: "4125",
   database: "cruddatabase",
 });
 
@@ -126,13 +126,12 @@ app.post("/api/insert", (req, res) => {
 app.post("/api/createact", (req, res) => {
   const act_info = req.body.act_info;
   const match_id = req.body.match_id;
-  const act_date = req.body.act_date;
   const act_time = req.body.act_time;
   const author_id = req.body.author_id;
 
   const sqlInsert =
-    "INSERT INTO admin_act (author_id,act_info,act_date,act_time,match_id) VALUES (?,?,?,?,?)";
-    db.query(sqlInsert, [author_id, act_info, act_date, act_time, match_id], (err, result) => {
+    "INSERT INTO admin_act (author_id,act_info,act_time,match_id) VALUES (?,?,?,?)";
+    db.query(sqlInsert, [author_id, act_info, act_time, match_id], (err, result) => {
     console.log(err);
     console.log(result);
     res.send(result);
@@ -434,6 +433,19 @@ app.post("/api/makecomment", (req, res) => {
   });
 });
 
+app.post("/api/createnews", (req, res) => {
+  const date = req.body.date;
+  const content = req.body.content;
+  const author_id = req.body.author_id;
+
+  const sqlInsert =
+    "INSERT INTO daily_news (author_id,content,date) VALUES (?,?,?)";
+    db.query(sqlInsert, [author_id, content, date], (err, result) => {
+    console.log(err);
+    console.log(result);
+    res.send(result);
+  });
+});
 
 app.listen(3001, () => {
   console.log("bruh");

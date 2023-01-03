@@ -27,6 +27,9 @@ function Home() {
       <button className="act-button" onClick={handleClick}>
         <Link className="act-text" style={{textDecoration:'none'}} to="/match">ADD FOOTBALL MATCH</Link>
       </button>
+      <button className="act-button" onClick={handleClick}>
+        <Link className="act-text" style={{textDecoration:'none'}} to="/dailynews">ADD DAILY NEWS</Link>
+      </button>
     </div>
     ) :
     (<></>)}
