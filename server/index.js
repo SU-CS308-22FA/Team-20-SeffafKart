@@ -411,6 +411,31 @@ app.put("/api/updateratereferee", (req,res) => {
   }
 })
 
+app.get('/api/comment_match/match_id=:match_id', (req,res,next) => {
+  //res.json({message: "ok"});
+  if(req.params.match_id !== undefined) {
+    db.query("SELECT * FROM comment_match WHERE match_id = ? ORDER BY comment_id DESC", [req.params.match_id],(err, result,fields) => {
+      if(err) {res.json("ERROR")}
+      else {res.json(result)}
+    })
+  } 
+});
+
+app.post("/api/makecomment", (req, res) => {
+  const content = req.body.content;
+  const username = req.body.username;
+  const date = req.body.date;
+  const match_id = req.body.match_id;
+
+  const sqlInsert =
+    "INSERT INTO comment_match (content,username,date,match_id) VALUES (?,?,?,?)";
+    db.query(sqlInsert, [content, username, date, match_id], (err, result) => {
+    console.log(err);
+    console.log(result);
+    res.send(result);
+  });
+});
+
 
 
 app.listen(process.env.PORT || 3001, () => {
