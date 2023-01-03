@@ -437,14 +437,23 @@ app.post("/api/createnews", (req, res) => {
   const date = req.body.date;
   const content = req.body.content;
   const author_id = req.body.author_id;
+  const title = req.body.title;
 
   const sqlInsert =
-    "INSERT INTO daily_news (author_id,content,date) VALUES (?,?,?)";
-    db.query(sqlInsert, [author_id, content, date], (err, result) => {
+    "INSERT INTO daily_news (author_id,content,date, title) VALUES (?,?,?,?)";
+    db.query(sqlInsert, [author_id, content, date,title], (err, result) => {
     console.log(err);
     console.log(result);
     res.send(result);
   });
+});
+
+app.get('/api/daily_news', (req,res,next) => {
+  //res.json({message: "ok"});
+    db.query("SELECT * FROM daily_news ORDER BY news_id DESC",(err, result,fields) => {
+      if(err) {res.json("ERROR")}
+      else {res.json(result)}
+    })
 });
 
 app.listen(3001, () => {
