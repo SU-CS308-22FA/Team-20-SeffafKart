@@ -25,7 +25,7 @@ function FormProfile() {
 
     const updatePassword = (e) => {
         e.preventDefault();
-        Axios.put("http://localhost:3001/api/updatepassword", {
+        Axios.put("https://seffafkart-client.onrender.com/api/updatepassword", {
           password: newPassword,
           id: userId,
         }).then((response) => {
@@ -36,7 +36,7 @@ function FormProfile() {
 
       const updateUsername = (e) => {
         e.preventDefault();
-        Axios.put("http://localhost:3001/api/updateusername", {
+        Axios.put("https://seffafkart-client.onrender.com/api/updateusername", {
           userName: newUsername,
           id: userId,
         }).then((response) => {
@@ -47,7 +47,7 @@ function FormProfile() {
     
       const updateEmail = (e) => {
         e.preventDefault();
-        Axios.put("http://localhost:3001/api/updateemail", {
+        Axios.put("https://seffafkart-client.onrender.com/api/updateemail", {
           email: newEmail,
           id: userId,
         }).then((response) => {
@@ -58,7 +58,7 @@ function FormProfile() {
     
       const updateUserInfo = (e) => {
         e.preventDefault();
-        Axios.put("http://localhost:3001/api/updateuserinfo", {
+        Axios.put("https://seffafkart-client.onrender.com/api/updateuserinfo", {
           userInfo: newUserInfo,
           id: userId,
         }).then((response) => {
@@ -69,7 +69,7 @@ function FormProfile() {
     
       const deleteUser = (e) => {
         e.preventDefault();
-        Axios.delete(`http://localhost:3001/api/delete/${user[0].username}`)
+        Axios.delete(`https://seffafkart-client.onrender.com/api/delete/${user[0].username}`)
         .then((response) => {
             setDeleted(true);
             dispatch(logoutUser)

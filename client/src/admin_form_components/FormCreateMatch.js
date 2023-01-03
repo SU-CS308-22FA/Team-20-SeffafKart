@@ -10,7 +10,6 @@ function FormCreateMatch() {
   const [awayteam, setAwayTeam] = useState("");
   const [errors, setErrors] = useState("");
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (location === "" || date ===""  || time ===""  || hometeam ===""  || awayteam ==="") {
@@ -79,7 +78,7 @@ function FormCreateMatch() {
         />
         </div>
         <div className="form-datetime">
-        <label className="form-label-act">Enter the date and time of the act</label>
+        <label className="form-label-act">Enter the date and time of the match</label>
         <input
             className="form-date"
             type="text"

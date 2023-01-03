@@ -18,6 +18,10 @@ function FormAdminAct(props) {
     const [acttime, setActTime] = useState("");
     const [errors, setErrors] = useState("");
 
+    /**
+     * Handle the submit event of inserting an administrative act to the database via form
+     * @param  {Event} e The event instance of the current state
+     */
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (actinfo === "" || acttime ==="") {
@@ -25,16 +29,16 @@ function FormAdminAct(props) {
         }
         else {
           Axios.post("http://localhost:3001/api/createact", {
-          author_id: user_id,
-          act_info: actinfo,
-          act_time: acttime,
-          match_id: match_id
-        }).then((err) => {
-          alert("Act is successfully created");
-          //console.log(err);
-          if(err === null) {
-            console.log("act created")
-          }
+            author_id: user_id,
+            act_info: actinfo,
+            act_time: acttime,
+            match_id: match_id
+          }).then((err) => {
+            alert("Act is successfully created");
+            //console.log(err);
+            if(err === null) {
+              console.log("act created")
+            }
          });
         } 
       };

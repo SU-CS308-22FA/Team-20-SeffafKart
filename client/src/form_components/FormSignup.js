@@ -13,7 +13,7 @@ const FormSignup = () => {
 
   const submitReview = async (e) => {
     e.preventDefault();
-    Axios.post("http://localhost:3001/api/insert", {
+    Axios.post("https://seffafkart-server.onrender.com/api/insert", {
       userName: userName,
       password: password,
       email: email,

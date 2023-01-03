@@ -30,6 +30,11 @@ function Game(props) {
 
   const [refereeCTR, setRefereeCTR] = useState(0)
 
+  /**
+   * rate the administrative act with the given id according to the given rate type 
+   * @param  {integer} id id of the administrative act
+   * @param  {string} rate rate type, pos or neg, of the adminisrative act
+   */
   const handleRate = async (id,rate) => {
     if (isLogin === false) {
       alert("You should logged in first to rate an act!");
@@ -114,6 +119,11 @@ function Game(props) {
     console.log(r1,r2,r3,"rates")
   }, [refereeCTR])
 
+
+  /**
+   * rate main referee according to the given value
+   * @param  {integer} data rate value
+   */
   const getRateRefereeOne = (data) => {
     Axios.get(`http://localhost:3001/api/ratingreferee/match_id=${match_id}&user_id=${user[0].id}&referee_num=${1}`)
     .then((response) => {

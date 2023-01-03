@@ -18,24 +18,11 @@ function FormLogin() {
   const [errMsg,setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
 
-  const [loginStatus, setLoginStatus] = useState("");
-
-  // const userRef = useRef();
-  // const errRef = useRef();
-
-  // useEffect(() => {
-  //   userRef.current.focus();
-  // }, [])
-
-  // useEffect(() => {
-  //   setErrMsg('');
-  // }, [email, password])
-
-    
+  const [loginStatus, setLoginStatus] = useState("");    
 
   const LoginCheck = async (e) => {
     e.preventDefault();
-      Axios.post("http://localhost:3001/api/login", {
+      Axios.post("https://seffafkart-client.onrender.com/api/login", {
       // userName: userName,
       password: password,
       email: email,

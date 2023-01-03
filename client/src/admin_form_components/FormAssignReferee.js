@@ -20,6 +20,10 @@ function FormAssignReferee(props) {
   const [second_assistant_referee, set2ndAssistant] = useState("");
   const [errors, setErrors] = useState("");
 
+  /**
+   * Handle the submit event of updating referee fields of an football match to the database via form
+   * @param  {Event} e The event instance of the current state
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (main_referee === "" || first_assistant_referee ==="" || second_assistant_referee ==="") {
