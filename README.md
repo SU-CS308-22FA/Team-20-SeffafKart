@@ -69,9 +69,9 @@ Client Layout (inside src directory):
 ***
 First of all you need to deploy your **backend** (*server*) part of the project to the [Heroku Cloud Application Platform](https://id.heroku.com/login). First of all create a new account or if you already have one, create a *new> create new app* button from the "new" button from the top right part of the main page. Enter the name of the app and choose the closest region to your location for efficiency. Then press *"Create App"* button.  Later on open the source code from the VScode editor. Open a new terminal and write the following commands:
 
-    cd client
+    cd server
     heroku login
-   First you will enter the client directory and try to log in to heroku from that directory. If you encounter *"press any key to login"* response, as stated press any key and it will redirect you to the browser to login to your Heroku account. You can check whether you logged in successfully or not from the previous terminal you have opened. It should prompt your mail address. Later on you can use the instructions given in the *"Deploy using Heroku Git"* part of the page to finish deploying the server. 
+   First you will enter the server directory and try to log in to heroku from that directory. If you encounter *"press any key to login"* response, as stated press any key and it will redirect you to the browser to login to your Heroku account. You can check whether you logged in successfully or not from the previous terminal you have opened. It should prompt your mail address. Later on you can use the instructions given in the *"Deploy using Heroku Git"* part of the page to finish deploying the server. 
 Secondly you need to add a package to your heroku app page from the "*Resources*" page. You will add by searching *"ClearDB MySQL"*  add-on and choose the free version from there. It will automatically implement the essential add-on to your heroku server. It will provide the ability to connect to the database. Later on by switching to "*Settings*" tab from the menu in heroku app page, you will see a part called "*Config Vars*". If you click on the small pencil figure from the right side you will see the entire variables in the following format: 
 
     mysql://b2405e2498e680:44959ae7@eu-cdbr-west-03.cleardb.net/heroku_6fdeb6b2c5ed9ea?reconnect=true
@@ -107,6 +107,6 @@ In the next step, set up a new account in [Netlify](https://www.netlify.com) or 
     CI= npm run build
 Then click "Deploy Site" button and the Netlify will start deploying the website. Although there is one last step we need to do before using successfully deploying our application. Switch to VScode terminal which is in the client directory of your local source code and enter the following code:
 
-    npm run build
+    npm start
   And the Netlify will finalize the deployment process. You have successfully deployed your web application.
 
