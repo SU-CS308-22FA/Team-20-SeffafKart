@@ -5,9 +5,9 @@ const app = express();
 const mysql = require("mysql2");
 
 const db = mysql.createPool({
-  host: "containers-us-west-71.railway.app",
+  host: "localhost",
   user: "root",
-  password: "4125",
+  password: "password",
   database: "cruddatabase",
 });
 
@@ -224,6 +224,29 @@ app.post("/api/rateadminact", (req,res) => {
         } else {
         res.send(result);
         }
+    if (rate_type==="pos"){
+      const update = "UPDATE admin_act SET act_rate_pos = act_rate_pos + 1 WHERE admin_act_id = ?"
+      db.query(update, act_id,(err,result) => {
+        if(err) {
+          console.log(err)
+        }
+        else {
+          console.log(result)
+        }
+      })
+    }
+    else {
+      const update = "UPDATE admin_act SET act_rate_neg = act_rate_neg + 1 WHERE admin_act_id = ?"
+      db.query(update, act_id, (err,result) => {
+        if(err) {
+          console.log(err)
+        }
+        else {
+          console.log(result)
+        }
+      })
+    }
+    
    })
   }
 })
@@ -245,29 +268,103 @@ app.put("/api/updaterateadminact", (req,res) => {
 
   if(req.body.user_id !== undefined) {
     const sqlUpdate = "UPDATE rate_act SET rate_type = ? WHERE user_id = ? AND act_id = ?";
-     db.query(sqlUpdate,[rate_type,user_id,act_id] , (err, result) => {
-      if (err) {
-        console.log(err);
-        } else {
-        res.send(result);
+      db.query(sqlUpdate,[rate_type,user_id,act_id] , (err, result) => {
+        if (err) {
+          console.log(err);
+          } else {
+          res.send(result);
+          }
+      })
+    if (rate_type === "pos"){
+      const update = "UPDATE admin_act SET act_rate_pos = act_rate_pos + 1 WHERE admin_act_id = ?"
+      console.log("id",act_id)
+      db.query(update, [act_id], (err,result) => {
+        
+        if(err) {
+          console.log(err)
         }
-   })
+        else {
+          console.log(result)
+        }
+      })
+      const update1 = "UPDATE admin_act SET act_rate_neg = act_rate_neg - 1 WHERE admin_act_id = ?"
+      console.log("id",act_id)
+      db.query(update1, [act_id], (err,result) => {
+        
+        if(err) {
+          console.log(err)
+        }
+        else {
+          console.log(result)
+        }
+      })
+    }
+    else {
+      const update = "UPDATE admin_act SET act_rate_neg = act_rate_neg + 1 WHERE admin_act_id = ?"
+      console.log("id",act_id)
+      db.query(update, [act_id], (err,result) => {
+        if(err) {
+          console.log(err)
+        }
+        else {
+          console.log(result)
+        }
+      })
+      const update1 = "UPDATE admin_act SET act_rate_pos = act_rate_pos - 1 WHERE admin_act_id = ?"
+      console.log("id",act_id)
+      db.query(update1, [act_id], (err,result) => {
+        
+        if(err) {
+          console.log(err)
+        }
+        else {
+          console.log(result)
+        }
+      })
+    }
   }
 })
 
-app.delete("/api/deleterate/:id", (req, res) => {
+app.put("/api/deleterate/:id", (req, res) => {
   const id = req.params.id;
+  const act_id = req.body.act_id;
+  const rate_type = req.body.rate_type;
 
   const sqlDelete = "DELETE FROM rate_act WHERE id = ?";
-
-    db.query(sqlDelete, id, (err, result) => {
-      if (err) {
-        console.log(err);
+  db.query(sqlDelete, id, (err, result) => {
+    if (err) {
+      console.log(err);
+    }
+    else {
+      res.send(result);
+    }
+  })
+  if (rate_type === "pos"){
+    const update = "UPDATE admin_act SET act_rate_pos = act_rate_pos - 1 WHERE admin_act_id = ?"
+    console.log("id",act_id)
+    db.query(update, [act_id], (err,result) => {
+      
+      if(err) {
+        console.log(err)
       }
       else {
-        res.send(result);
+        console.log(result)
       }
-   })
+    })
+  }
+  else {
+    const update = "UPDATE admin_act SET act_rate_neg = act_rate_neg - 1 WHERE admin_act_id = ?"
+    console.log("id",act_id)
+    db.query(update, [act_id], (err,result) => {
+      if(err) {
+        console.log(err)
+      }
+      else {
+        console.log(result)
+      }
+    })
+  }
+  
 });
 
 app.put("/api/decreaseposrate", (req, res) => {
