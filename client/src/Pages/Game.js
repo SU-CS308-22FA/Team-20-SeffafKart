@@ -35,7 +35,7 @@ function Game(props) {
    * @param  {integer} id id of the administrative act
    * @param  {string} rate rate type, pos or neg, of the adminisrative act
    */
-  const handleRate = async (id,rate) => {
+  const handleRate = async (act_id,rate) => {
     if (isLogin === false) {
       alert("You should logged in first to rate an act!");
     }
@@ -43,21 +43,23 @@ function Game(props) {
       alert("You are an admin!");
     }
     else {
-      Axios.get(`http://localhost:3001/api/ratingadminact/act_id=${id}&user_id=${user[0].id}`)
+      Axios.get(`http://localhost:3001/api/ratingadminact/act_id=${act_id}&user_id=${user[0].id}`)
       .then((response) => {
           console.log(response.data,"data")
           if(response.data.length !== 0) {
             if(response.data[0].rate_type === rate) {
               console.log("del time")
-              Axios.delete(`http://localhost:3001/api/deleterate/${response.data[0].id}`)
-              .then((response) => {
+              Axios.put(`http://localhost:3001/api/deleterate/${response.data[0].id}`, {
+                act_id: act_id,
+                rate_type: rate
+              }).then((response) => {
                   alert("deleted");
               });
             } else {
               Axios.put("http://localhost:3001/api/updaterateadminact", {
                 user_id:user[0].id,
                 rate_type: rate,
-                act_id: id
+                act_id: act_id
               }).then((response) => {
                   alert("successfully voted act");
               });
@@ -68,7 +70,7 @@ function Game(props) {
             Axios.post("http://localhost:3001/api/rateadminact", {
               user_id:user[0].id,
               rate_type: rate,
-              act_id: id
+              act_id: act_id
             }).then((response) => {
                 alert("successfully voted act");
             });
