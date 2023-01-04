@@ -17,6 +17,7 @@ function Game(props) {
   const user = useSelector((state) => state.user.currentUser);
   const isLogin = useSelector((state) => state.user.isLogin);
   const isAdmin = useSelector((state) => state.user.admin);
+  const [change, setChange] = useState(0);
   let text = ""
   let comments = "" 
   let adminActs = ""
@@ -97,7 +98,7 @@ function Game(props) {
     }).catch(err => console.log(err))
 
     console.log("ne zaman")
-},)
+},[change])
 
   useEffect(() => {
     Axios.get(`http://localhost:3001/api/ratingreferee/match_id=${match_id}`)
@@ -234,6 +235,7 @@ function Game(props) {
           match_id: match_id
         }).then((err) => {
           alert("Successfully commented");
+          setChange(change+1)
          });  
       };
     }
