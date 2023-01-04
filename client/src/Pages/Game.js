@@ -55,6 +55,7 @@ function Game(props) {
                 rate_type: rate
               }).then((response) => {
                   alert("deleted");
+                  setChange(change+1)
               });
             } else {
               Axios.put("http://localhost:3001/api/updaterateadminact", {
@@ -63,6 +64,7 @@ function Game(props) {
                 act_id: act_id
               }).then((response) => {
                   alert("successfully voted act");
+                  setChange(change+1)
               });
             }
           } 
@@ -74,10 +76,12 @@ function Game(props) {
               act_id: act_id
             }).then((response) => {
                 alert("successfully voted act");
+                setChange(change+1)
             });
           }
       });
     }
+    
   }
 
   useEffect(() => {
