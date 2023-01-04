@@ -12,7 +12,7 @@ export default function Sidebar(){
             setNews(res.data)
         }).catch(err => console.log(err))    
         console.log("news")
-    },)
+    },[])
 
     const dailynews = news.map((news, index) => {
         return (
